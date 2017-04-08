@@ -11,17 +11,19 @@ import com.sdi.business.UserService;
 
 public class RemoteEjbServicesLocator implements ServicesFactory {
 
-	private static final String USER_SERVICE_JNDI_KEY = "sdi3-28/"
-			+ "sdi3-28Ejb/" + "EjbUserService!"
-			+ "com.sdi.business.impl.user.EjbUserServiceRemote";
+	private static final String BASE_JNDI_KEY = "sdi3-28/"
+			+ "sdi3-28.EJB/";
+	private static final String USER_SERVICE_JNDI_KEY = BASE_JNDI_KEY
+			+ "EjbUserService!"
+			+ "com.sdi.business.impl.user.RemoteUserService";
 
-	private static final String TASK_SERVICE_JNDI_KEY = "sdi3-28/"
-			+ "sdi3-28Ejb/" + "EjbTaskService!"
-			+ "com.sdi.business.impl.task.EjbTaskServiceRemote";
+	private static final String TASK_SERVICE_JNDI_KEY = BASE_JNDI_KEY
+			+ "EjbTaskService!"
+			+ "com.sdi.business.impl.task.RemoteTaskService";
 
-	private static final String ADMIN_SERVICE_JNDI_KEY = "sdi3-28/"
-			+ "sdi3-28Ejb/" + "EjbAdminService!"
-			+ "com.sdi.business.impl.admin.EjbAdminServiceRemote";
+	private static final String ADMIN_SERVICE_JNDI_KEY = BASE_JNDI_KEY
+			+ "EjbAdminService!"
+			+ "com.sdi.business.impl.admin.RemoteAdminService";
 
 	@Override
 	public UserService getUserService() {

@@ -2,7 +2,6 @@ package com.sdi.infrastructure;
 
 import com.sdi.business.ServicesFactory;
 import com.sdi.business.impl.LocalEjbServicesLocator;
-import com.sdi.business.impl.SimpleServicesFactory;
 
 /**
  * Esta clase es la que realemente relaciona las interfaces de las capas 
@@ -24,7 +23,6 @@ import com.sdi.business.impl.SimpleServicesFactory;
  */
 public class Factories {
 
-//	public static ServicesFactory services = new SimpleServicesFactory();
 	public static ServicesFactory services = new LocalEjbServicesLocator();
 
 }
