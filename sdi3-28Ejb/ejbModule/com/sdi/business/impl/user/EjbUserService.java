@@ -10,7 +10,7 @@ import com.sdi.model.User;
  * Session Bean implementation class EjbUserService
  */
 @Stateless
-public class EjbUserService implements EjbUserServiceRemote, EjbUserServiceLocal {
+public class EjbUserService implements RemoteUserService, LocalUserService {
 
     /**
      * Default constructor. 

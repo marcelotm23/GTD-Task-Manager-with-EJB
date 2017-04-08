@@ -2,12 +2,12 @@
 <application xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/application_7.xsd" id="Application_ID" version="7">
   <display-name>sdi3-28</display-name>
   <module>
-    <web>
-      <web-uri>sdi3-28Web.war</web-uri>
-      <context-root>sdi3-28Web</context-root>
-    </web>
+    <ejb>sdi3-28.EJB.jar</ejb>
   </module>
   <module>
-    <ejb>sdi3-28Ejb.jar</ejb>
+    <web>
+      <web-uri>sdi3-28.Web.war</web-uri>
+      <context-root>sdi3-28.Web</context-root>
+    </web>
   </module>
 </application>

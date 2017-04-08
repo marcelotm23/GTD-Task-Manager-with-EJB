@@ -13,7 +13,7 @@ import com.sdi.model.Task;
  * Session Bean implementation class EjbTaskService
  */
 @Stateless
-public class EjbTaskService implements EjbTaskServiceRemote, EjbTaskServiceLocal {
+public class EjbTaskService implements RemoteTaskService, LocalTaskService {
 
     /**
      * Default constructor. 

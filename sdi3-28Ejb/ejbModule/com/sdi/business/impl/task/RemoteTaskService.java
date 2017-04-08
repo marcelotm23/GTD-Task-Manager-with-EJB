@@ -5,6 +5,6 @@ import javax.ejb.Remote;
 import com.sdi.business.TaskService;
 
 @Remote
-public interface EjbTaskServiceRemote extends TaskService {
+public interface RemoteTaskService extends TaskService {
 
 }

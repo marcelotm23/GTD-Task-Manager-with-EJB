@@ -5,6 +5,6 @@ import javax.ejb.Local;
 import com.sdi.business.TaskService;
 
 @Local
-public interface EjbTaskServiceLocal extends TaskService {
+public interface LocalTaskService extends TaskService {
 
 }

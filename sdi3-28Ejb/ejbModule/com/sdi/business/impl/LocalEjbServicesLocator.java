@@ -10,17 +10,19 @@ import com.sdi.business.TaskService;
 import com.sdi.business.UserService;
 
 public class LocalEjbServicesLocator implements ServicesFactory {
-	private static final String USER_SERVICE_JNDI_KEY = "java:global/"
-			+ "sdi3-28/" + "sdi3-28Ejb/" + "EjbUserService!"
-			+ "com.sdi.business.impl.user.EjbUserServiceLocal";
+	private static final String BASE_JNDI_KEY = "java:global/"
+			+ "sdi3-28/" + "sdi3-28.EJB/";
+	private static final String USER_SERVICE_JNDI_KEY = BASE_JNDI_KEY
+			+ "EjbUserService!"
+			+ "com.sdi.business.impl.user.LocalUserService";
 
-	private static final String TASK_SERVICE_JNDI_KEY = "java:global/"
-			+ "sdi3-28/" + "sdi3-28Ejb/" + "EjbTaskService!"
-			+ "com.sdi.business.impl.task.EjbTaskServiceLocal";
+	private static final String TASK_SERVICE_JNDI_KEY = BASE_JNDI_KEY
+			+ "EjbTaskService!"
+			+ "com.sdi.business.impl.task.LocalTaskService";
 
-	private static final String ADMIN_SERVICE_JNDI_KEY = "java:global/"
-			+ "sdi3-28/" + "sdi3-28Ejb/" + "EjbAdminService!"
-			+ "com.sdi.business.impl.admin.EjbAdminServiceLocal";
+	private static final String ADMIN_SERVICE_JNDI_KEY = BASE_JNDI_KEY
+			+ "EjbAdminService!"
+			+ "com.sdi.business.impl.admin.LocalAdminService";
 
 	@Override
 	public UserService getUserService() {

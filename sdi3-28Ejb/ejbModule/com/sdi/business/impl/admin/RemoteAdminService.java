@@ -5,6 +5,6 @@ import javax.ejb.Remote;
 import com.sdi.business.AdminService;
 
 @Remote
-public interface EjbAdminServiceRemote extends AdminService {
+public interface RemoteAdminService extends AdminService {
 
 }
