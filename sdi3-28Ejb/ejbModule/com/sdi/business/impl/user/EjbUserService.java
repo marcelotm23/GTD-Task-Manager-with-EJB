@@ -21,21 +21,18 @@ public class EjbUserService implements EjbUserServiceRemote, EjbUserServiceLocal
 
 	@Override
 	public Long registerUser(User user) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+		return new UserServiceImpl().registerUser(user);
 	}
 
 	@Override
 	public void updateUserDetails(User user) throws BusinessException {
-		// TODO Auto-generated method stub
-		
+		new UserServiceImpl().updateUserDetails(user);
 	}
 
 	@Override
 	public User findLoggableUser(String login, String password)
 			throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+		return new UserServiceImpl().findLoggableUser(login, password);
 	}
 
 }
