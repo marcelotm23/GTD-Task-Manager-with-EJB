@@ -1,6 +1,5 @@
 package com.sdi.business.impl.user;
 
-import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
 import com.sdi.business.exception.BusinessException;

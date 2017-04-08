@@ -6,63 +6,24 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.SQLTimeoutException;
 import java.util.Properties;
 
-import javax.sql.DataSource;
-
-import org.apache.tomcat.dbcp.dbcp.BasicDataSource;
-
 import com.sdi.persistence.PersistenceException;
+import com.sdi.persistence.impl.JdbcHelper;
 
 public class Jdbc {
-	private static final String DATABASE_PROPERTIES_FILE = "database.properties";
-	private static final String QUERIES_PROPERTIES_FILE = "sql_queries.properties";
-
-	private static final String DATABASE_URL;
-	private static final String DATABASE_USER;
-	private static final String DATABASE_PASSWORD;
-	private static final String DATABASE_DRIVER;
-
-	private static Properties sqlQueries;
-	private static DataSource dataSource;
-
-	static {
-		Properties dbConfig = loadProperties(DATABASE_PROPERTIES_FILE);
-		sqlQueries = loadProperties(QUERIES_PROPERTIES_FILE);
-
-		DATABASE_URL = dbConfig.getProperty("DATABASE_URL");
-		DATABASE_USER = dbConfig.getProperty("DATABASE_USER");
-		DATABASE_PASSWORD = dbConfig.getProperty("DATABASE_PASSWORD");
-		DATABASE_DRIVER = dbConfig.getProperty("DATABASE_DRIVER");
-
-		dataSource = configureDataSource(dbConfig);
-	}
-
-	private static DataSource configureDataSource(Properties dbConfig) {
-		BasicDataSource ds = new BasicDataSource();
-		ds.setDriverClassName(DATABASE_DRIVER);
-		ds.setUsername(DATABASE_USER);
-		ds.setPassword(DATABASE_PASSWORD);
-		ds.setUrl(DATABASE_URL);
-		return ds;
-	}
+	
+	private	static	String	CONFIG_FILE	=	"/persistence.properties";	
+	private static	JdbcHelper jdbc = new JdbcHelper(CONFIG_FILE);	
+	private static Properties sqlQueries = loadProperties(CONFIG_FILE);
+	
 
 	private static ThreadLocal<Connection> threadLocal = new ThreadLocal<>();
 
 	public static Connection createConnection() {
-		try {
-
-			Connection con = dataSource.getConnection();
+			Connection con = jdbc.createConnection();
 			threadLocal.set(con);
 			return con;
-
-		} catch (SQLTimeoutException e) {
-			throw new PersistenceException("Timeout opennig JDBC conection", e);
-		} catch (SQLException e) {
-			throw new PersistenceException(
-					"An unexpected JDBC error has ocurred", e);
-		}
 	}
 
 	public static Connection getCurrentConnection() {

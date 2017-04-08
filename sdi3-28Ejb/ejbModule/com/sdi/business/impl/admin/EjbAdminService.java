@@ -2,7 +2,6 @@ package com.sdi.business.impl.admin;
 
 import java.util.List;
 
-import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
 import com.sdi.business.exception.BusinessException;
