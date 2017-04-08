@@ -1,0 +1,79 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/template-general-conlayouts.xhtml">
+
+
+	<ui:define name="titulo">
+    #{msgs.tituloOperacionListado}
+  </ui:define>
+
+	<ui:define name="cuerpo">
+		<p:layoutUnit position="west" size="250" minSize="100"
+			header="#{msgs.listasMenu}" collapsible="false" 
+			styleClass="listadoTareasAncho">
+			<ui:include src="/snippets/menu-categorias.xhtml" />
+		</p:layoutUnit>
+		<p:layoutUnit position="center" styleClass="listadoTareasAncho">
+			<p:commandButton value="#{msgs.tituloOperacionAnnadir}"
+						id="annadirTarea" type="submit"
+						action="annadir" immediate="true" />
+			<p:panel header="#{msgs.tituloOperacionListado}">
+				<h:form id="formlistado">
+					<p:inputSwitch value="#{controller.verFinalizadas}"
+						onLabel="#{msgs.onVerFinalizadas}"
+						offLabel="#{msgs.offVerFinalizadas}"
+						id="ver_finalizadas">
+						<p:ajax listener="#{controller.verTareasFinalizadas}"
+							update="formlistado:tablalistado" />
+					</p:inputSwitch>
+					<p:dataTable id="tablalistado" var="vtarea"
+						value="#{controller.tareas}" border="1"
+						emptyMessage="#{msgs.tablaTareasSinTareas}" paginator="true"
+						rows="8" styleClass="listadoTareasAncho"
+						filteredValue="#{controller.tareasFiltradas}">
+
+						<p:column sortBy="#{vtarea.title}" filterBy="#{vtarea.title}"
+							filterMatchMode="contains" id="filtro"
+							styleClass="#{not empty vtarea.finished ? 'columnColorFinished' : ''}">
+							<f:facet name="header">#{msgs.tablaTareasTitulo}</f:facet>
+							<h:outputText value="#{vtarea.title}" id="titulo_tarea"></h:outputText>
+						</p:column>
+						<p:column sortBy="#{vtarea.comments}">
+							<f:facet name="header">#{msgs.tablaTareasComentarios}</f:facet>#{vtarea.comments}</p:column>
+						<p:column sortBy="#{vtarea.planned}" id="fecha_planeada"
+							styleClass="#{vtarea.planned lt controller.today ? 'columnColorDelayed' : ''}">
+							<f:facet name="header">#{msgs.tablaTareasFechaPlaneada}</f:facet>
+							<h:outputText value="#{vtarea.planned}">
+								<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
+							</h:outputText>
+						</p:column>
+						<p:column sortBy="#{vtarea.finished}">
+							<f:facet name="header">#{msgs.tablaTareasFechaFinalizada}</f:facet>
+							<h:outputText value="#{vtarea.finished}" id="fechaFinalizada_tarea">
+								<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
+							</h:outputText>
+						</p:column>
+						<p:column>
+							<f:facet name="header">#{msgs.tablaTareasEditar}</f:facet>
+							<p:commandLink action="editar" type="submit"
+								value="#{msgs.tablaTareasEditar}" id="editar_tarea"
+								actionListener="#{tarea.setTarea(vtarea)}" immediate="true">
+							</p:commandLink>
+						</p:column>
+						<p:column>
+							<f:facet name="header">#{msgs.tablaTareasFinalizar}</f:facet>
+							<p:commandLink type="submit" value="#{msgs.tablaTareasFinalizar}"
+								action="#{controller.finalizarTarea('inbox')}"
+								actionListener="#{tarea.setTarea(vtarea)}" immediate="true"
+								update="formlistado:tablalistado" id="finalizar_tarea">
+							</p:commandLink>
+						</p:column>
+					</p:dataTable>
+				</h:form>
+			</p:panel>
+		</p:layoutUnit>
+	</ui:define>
+</ui:composition>

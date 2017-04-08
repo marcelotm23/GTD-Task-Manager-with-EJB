@@ -1,0 +1,46 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+	<p:panelGrid id="Grid" columns="2" cellpadding="5">
+	 #{msgs.tituloTarea}
+		  <h:panelGroup>
+					<p:inputText value="#{tarea.title}" required="true"
+						requiredMessage="#{msgs.formEditarTarea_titulo_requiredMessage}"
+						validatorMessage="#{msgs.formEditarTarea_titulo_validatorMessage}"
+						id="titulo">
+					</p:inputText>
+					<p:message for="titulo"/>
+		</h:panelGroup>
+		
+	  #{msgs.comentarioTarea} 
+	  <h:panelGroup>
+			<p:inputText value="#{tarea.comments}" 
+				id="comments">
+			</p:inputText>
+			<p:message for="comments"/>
+		</h:panelGroup>
+  
+	  #{msgs.fechaPlaneadaTarea} 
+	  <h:panelGroup>
+			<p:calendar id="planned" value="#{tarea.planned}"
+			locale="#{settings.country}" showOn="button" />
+			<p:message for="planned"/>
+		</h:panelGroup>
+  
+	  #{msgs.categoriaTarea}
+	  <h:panelGroup>
+			<p:selectOneMenu id="category" value="#{tarea.categoryId}" style="width:150px">
+                <f:selectItem itemLabel="#{msgs.categoriaNinguna}" itemValue="" noSelectionOption="true" />
+                <f:selectItems value="#{menuCategorias.categoriasMap}" />
+            </p:selectOneMenu>
+			<p:message for="category"/>
+	  </h:panelGroup>  
+ 	  <p:commandButton value="#{msgs.botonSalvar}" id="btnGuardar"
+		 action="#{controller.salvaTarea}" 
+		 update="form-cabecera:growl Grid" 
+		 process="@form"> 
+	  </p:commandButton> 
+	</p:panelGrid>
+</ui:composition>

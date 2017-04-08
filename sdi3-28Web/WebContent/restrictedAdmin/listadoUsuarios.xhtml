@@ -1,0 +1,62 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/template-general-admin.xhtml">
+
+	<ui:define name="titulo">
+    #{msgs.tituloListadoUsuarios}
+  	</ui:define>
+
+	<ui:define name="cuerpo">
+		<p:panel header="#{msgs.tituloListadoUsuarios}">
+			<p:commandButton value="#{msgs.botonReinicioBBDD}"
+				id="reiniciarBaseDeDatos" update="tablalistado form-cabecera:growl"
+				action="#{controller.reiniciarBaseDeDatos}" immediate="true" />
+			<p:dataTable id="tablalistado" var="vusuario"
+				value="#{controller.usuarios}" border="1">
+				<p:column id="Email" sortBy="#{vusuario.email}">
+					<f:facet name="header">#{msgs.tablaEmail}</f:facet>
+					<h:outputText value="#{vusuario.email}" id="email"></h:outputText>
+				</p:column>
+				<p:column id="Login" sortBy="#{vusuario.login}">
+					<f:facet name="header">#{msgs.tablaLogin}</f:facet>
+					<h:outputText value="#{vusuario.login}" id="login"></h:outputText>
+				</p:column>
+				<p:column id="Status" sortBy="#{vusuario.status}">
+					<f:facet name="header">#{msgs.tablaStatus}</f:facet>
+					<h:outputText value="#{vusuario.status}" id="status"></h:outputText>
+				</p:column>
+				<p:column>
+					<f:facet name="header">#{msgs.tablaCambiarStatus}</f:facet>
+					<p:commandLink id="cambiarStatus"
+						action="#{controller.cambiarEstado(vusuario)}" type="submit"
+						value="#{msgs.tablaCambiar}" immediate="true"
+						update="tablalistado form-cabecera:growl">
+					</p:commandLink>
+				</p:column>
+				<p:column>
+					<f:facet name="header">#{msgs.tablaEliminar}</f:facet>
+					<p:commandLink id="eliminar"
+						action="#{controller.eliminarUsuario(vusuario)}" type="submit"
+						value="#{msgs.tablaEliminar}" immediate="true"
+						update="tablalistado form-cabecera:growl">
+						<p:confirm header="#{msgs.tituloConfirmacion}"
+							message="#{msgs.confirmacionMensaje}" icon="ui-icon-alert" />
+					</p:commandLink>
+
+					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+						<p:commandButton id="si" value="#{msgs.confirmacionSi}" type="button"
+							styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+						<p:commandButton id="no" value="#{msgs.confirmacionNo}" type="button"
+							styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+					</p:confirmDialog>
+				</p:column>
+			</p:dataTable>
+		</p:panel>
+	</ui:define>
+	<ui:define name="pie">
+		<ui:include src="/snippets/pie-cerrarSesion.xhtml" />
+	</ui:define>
+</ui:composition>
