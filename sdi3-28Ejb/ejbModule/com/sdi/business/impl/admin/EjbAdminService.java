@@ -3,6 +3,7 @@ package com.sdi.business.impl.admin;
 import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.jws.WebService;
 
 import com.sdi.business.exception.BusinessException;
 import com.sdi.model.User;
@@ -11,6 +12,7 @@ import com.sdi.model.User;
  * Session Bean implementation class EjbAdminService
  */
 @Stateless
+@WebService(name="AdminService")
 public class EjbAdminService implements RemoteAdminService, LocalAdminService {
 
     /**
