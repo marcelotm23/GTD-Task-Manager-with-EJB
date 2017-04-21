@@ -10,6 +10,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.sdi.persistence.PersistenceException;
+import com.sdi.persistence.impl.JdbcHelper;
 
 /**
  * Provides template methods to execute DML statements and queries with one
@@ -22,6 +23,8 @@ import com.sdi.persistence.PersistenceException;
  */
 public class JdbcTemplate {
 
+	private	static	String	CONFIG_FILE	=	"/persistence.properties";	
+	private static	JdbcHelper jdbc = new JdbcHelper(CONFIG_FILE);
 	private Object generatedKey;
 
 	/**
@@ -37,12 +40,12 @@ public class JdbcTemplate {
 	 * @return the number of affected rows
 	 */
 	public int execute(String queryKey, Object... args) {
-		String sql = Jdbc.getSqlQuery(queryKey);
+		String sql = jdbc.getSql(queryKey);
 
 		Connection con = null;
 		PreparedStatement ps = null;
 		try {
-			con = Jdbc.getCurrentConnection();
+			con = jdbc.createConnection();
 			ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			bindSqlParameters(args, ps);
 
@@ -53,7 +56,7 @@ public class JdbcTemplate {
 		} catch (SQLException e) {
 			throw new PersistenceException(e);
 		} finally {
-			Jdbc.close(ps, con);
+			jdbc.close(ps, con);
 		}
 	}
 
@@ -71,13 +74,13 @@ public class JdbcTemplate {
 	 */
 	public <T> T queryForObject(String queryKey, RowMapper<T> mapper,
 			Object... args) {
-		String sql = Jdbc.getSqlQuery(queryKey);
+		String sql = jdbc.getSql(queryKey);
 
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {
-			con = Jdbc.getCurrentConnection();
+			con = jdbc.createConnection();
 			ps = con.prepareStatement(sql);
 			bindSqlParameters(args, ps);
 			rs = ps.executeQuery();
@@ -87,7 +90,7 @@ public class JdbcTemplate {
 		} catch (SQLException e) {
 			throw new PersistenceException(e);
 		} finally {
-			Jdbc.close(rs, ps, con);
+			jdbc.close(ps, rs, con);
 		}
 	}
 
@@ -106,13 +109,13 @@ public class JdbcTemplate {
 	public <T> List<T> queryForList(String queryKey, RowMapper<T> mapper,
 			Object... args) {
 
-		String sql = Jdbc.getSqlQuery(queryKey);
+		String sql = jdbc.getSql(queryKey);
 
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {
-			con = Jdbc.getCurrentConnection();
+			con = jdbc.createConnection();
 			ps = con.prepareStatement(sql);
 			bindSqlParameters(args, ps);
 			rs = ps.executeQuery();
@@ -126,7 +129,7 @@ public class JdbcTemplate {
 		} catch (SQLException e) {
 			throw new PersistenceException(e);
 		} finally {
-			Jdbc.close(rs, ps, con);
+			jdbc.close(ps, rs, con);
 		}
 	}
 
@@ -151,7 +154,7 @@ public class JdbcTemplate {
 				generatedKey = rs.getObject(1);
 			}
 		} finally {
-			Jdbc.close(rs);
+			jdbc.close(null, rs, null);
 		}
 	}
 
