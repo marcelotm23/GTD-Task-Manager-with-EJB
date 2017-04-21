@@ -81,8 +81,8 @@ public class Jdbc {
 	 * @param con
 	 */
 	public static void close(Connection con) {
-		if (!isInAutoCommitMode(con))
-			return; // Transaction is in charge
+//		if (!isInAutoCommitMode(con))
+//			return; // Transaction is in charge
 
 		threadLocal.set(null);
 		if (con != null) {
@@ -94,13 +94,13 @@ public class Jdbc {
 		;
 	}
 
-	private static boolean isInAutoCommitMode(Connection con) {
-		try {
-			return con.getAutoCommit();
-		} catch (SQLException e) {
-			throw new PersistenceException("Unexpected exception", e);
-		}
-	}
+//	private static boolean isInAutoCommitMode(Connection con) {
+//		try {
+//			return con.getAutoCommit();
+//		} catch (SQLException e) {
+//			throw new PersistenceException("Unexpected exception", e);
+//		}
+//	}
 
 	private static Properties loadProperties(String fileName) {
 		Properties prop = new Properties();
