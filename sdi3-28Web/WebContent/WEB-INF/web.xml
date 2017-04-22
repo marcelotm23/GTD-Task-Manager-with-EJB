@@ -45,4 +45,8 @@ servicios REST en esta aplicación web
 	<servlet-name>resteasy</servlet-name>
 	<url-pattern>/rest/*</url-pattern>
 </servlet-mapping>
+<login-config> 
+	<auth-method>BASIC</auth-method> 
+	<realm-name>ApplicationRealm</realm-name> 
+</login-config>
 </web-app>
