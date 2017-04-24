@@ -26,6 +26,7 @@ public interface ServiceRest {
 
 	
 	@PUT
+	@Path("saveTask")
 	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public Long saveTask(Task task) throws BusinessException;
 

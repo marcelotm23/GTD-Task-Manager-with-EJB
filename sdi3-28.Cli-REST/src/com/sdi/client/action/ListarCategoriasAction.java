@@ -14,7 +14,8 @@ import alb.util.menu.Action;
 
 public class ListarCategoriasAction implements Action {
 
-	private static final String REST_SERVICE_URL = "http://localhost:8280/sdi3-28.Web/rest/findCategoriesByUsername";
+	private static final String REST_SERVICE_URL = 
+			"http://localhost:8280/sdi3-28.Web/rest/ServiceRs/findCategoriesByUsername";
 
 	@Override
 	public void execute() throws Exception {
@@ -24,7 +25,7 @@ public class ListarCategoriasAction implements Action {
 		List<Category> res = ClientBuilder.newClient()
 		.register(new Authenticator("user1", "user1"))
 		.target(REST_SERVICE_URL)
-		.path( "user1" ) 
+		.path("user1") 
 		.request()
 		.accept( MediaType.APPLICATION_XML )
 		.get()
