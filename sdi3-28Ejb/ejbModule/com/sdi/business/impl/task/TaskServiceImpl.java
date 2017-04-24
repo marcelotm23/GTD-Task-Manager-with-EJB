@@ -188,4 +188,29 @@ public class TaskServiceImpl implements TaskService {
 				}).execute();
 	}
 
+	@Override
+	public List<Category> findCategoriesByUsername(final String username)
+			throws BusinessException {
+		return (new Command<List<Category>>() {
+			@Override
+			public List<Category> execute() throws BusinessException {
+
+				return Persistence.getCategoryDto().findByUsername(username);
+			}
+		}).execute();
+	}
+
+	@Override
+	public List<Task> findNotFinishedTasksByCategoryId(final Long id)
+			throws BusinessException {
+		return (new Command<List<Task>>() {
+			@Override
+			public List<Task> execute() throws BusinessException {
+
+				return Persistence.getTaskDao()
+						.findNotFinishedTasksByCategoryId(id);
+			}
+		}).execute();
+	}
+
 }

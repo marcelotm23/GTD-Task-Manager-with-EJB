@@ -1,6 +1,7 @@
 package com.sdi.client;
 
 import com.sdi.client.action.ListarCategoriasAction;
+import com.sdi.client.action.ListarTareasAction;
 
 import alb.util.menu.BaseMenu;
 import alb.util.menu.NotYetImplementedAction;
@@ -11,7 +12,7 @@ public class MainMenu extends BaseMenu {
 		menuOptions = new Object[][] { 
 			{ "Usuario", null },
 			{ "Ver lista de categorías", 			ListarCategoriasAction.class }, 
-			{ "Ver tareas por categorías", 			NotYetImplementedAction.class },
+			{ "Ver tareas por categorías", 			ListarTareasAction.class },
 			{ "Marcar tarea como finalizada", 	NotYetImplementedAction.class },
 		};
 	}

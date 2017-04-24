@@ -123,4 +123,10 @@ public class TaskDaoJdbcImpl implements TaskDao {
 
 	}
 
+	@Override
+	public List<Task> findNotFinishedTasksByCategoryId(Long id) {
+		return jdbcTemplate.queryForList("TASK_FIND_NOT_FINISHED_BY_CATEGORY_ID",
+				new TaskDtoMapper(), id);
+	}
+
 }

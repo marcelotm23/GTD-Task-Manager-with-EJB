@@ -2,6 +2,10 @@ package com.sdi.client;
 
 import java.io.Serializable;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name = "category")
 public class Category implements Serializable {
 	
 	/**
@@ -12,11 +16,11 @@ public class Category implements Serializable {
 	private Long id;
 	private String name;
 	private Long userId;
-	
+	@XmlElement
 	public String getName() {
 		return name;
 	}
-
+	@XmlElement
 	public Long getId() {
 		return id;
 	}
@@ -29,7 +33,7 @@ public class Category implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-
+	@XmlElement
 	public Long getUserId() {
 		return userId;
 	}
