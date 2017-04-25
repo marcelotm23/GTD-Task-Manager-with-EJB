@@ -12,7 +12,7 @@ public class Output {
 	public static void printCategories(List<Category> categorias) {
 		Console.println("Id\tNombre");
 		for (Category c : categorias) {
-			Console.println(c.getId() + "\n" + c.getName());
+			Console.println(c.getId() + "\t" + c.getName());
 		}
 	}
 
@@ -22,8 +22,8 @@ public class Output {
 		} else {
 			Console.println("Nombre\tComentarios\tFecha planificada");
 			for (Task t : tasks) {
-				Console.println(t.getTitle() + "\n" + t.getComments() + "\n"
-						+ t.getPlanned() + "\n");
+				Console.println(t.getTitle() + "\t" + t.getComments() + "\t"
+						+ t.getPlanned() + "\t");
 			}
 		}
 	}

@@ -12,12 +12,12 @@ import com.sdi.client.ui.OptionsMenu;
 
 public class AuthenticateAction implements Action{
 	private static final String REST_SERVICE_URL = 
-			"http://localhost:8280/sdi3-28.Web/rest/ServiceRs/Authenticate";
+			"http://localhost:8280/sdi3-28.Web/rest/LoginRs/authenticate";
 
 	@Override
 	public void execute() throws Exception {
-		String user=Console.readString("Usuario:");
-		String password=Console.readString("Contraseña:");
+		String user=Console.readString("Usuario");
+		String password=Console.readString("Contraseña");
 		
 		User res = ClientBuilder.newClient()
 				.register(new Authenticator(user, password))
@@ -27,7 +27,7 @@ public class AuthenticateAction implements Action{
 				.get()
 				.readEntity(User.class);
 		
-		new OptionsMenu(res).execute();
+		new OptionsMenu().execute(res);
 	}
 
 }

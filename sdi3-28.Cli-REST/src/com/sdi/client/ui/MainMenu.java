@@ -12,6 +12,7 @@ public class MainMenu extends BaseMenu{
 			{ "Authenticate", AuthenticateAction.class },
 		};
 	}
+	
 
 	public static void main(String[] args) {
 		new MainMenu().execute();

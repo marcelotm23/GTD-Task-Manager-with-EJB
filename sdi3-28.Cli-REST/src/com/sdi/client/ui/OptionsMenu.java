@@ -1,6 +1,5 @@
 package com.sdi.client.ui;
 
-import alb.util.menu.BaseMenu;
 
 import com.sdi.client.action.FinalizarTareaAction;
 import com.sdi.client.action.ListarCategoriasAction;
@@ -10,7 +9,7 @@ import com.sdi.client.dtos.User;
 
 public class OptionsMenu extends BaseMenu {
 
-	public OptionsMenu(User user) {
+	public OptionsMenu() {
 		menuOptions = new Object[][] { 
 			{ "Usuario", null },
 			{ "Ver lista de categorías", 			ListarCategoriasAction.class }, 
@@ -19,5 +18,13 @@ public class OptionsMenu extends BaseMenu {
 			{ "Registrar una nueva tarea", 	RegistrarTareaAction.class },
 		};
 	}
+	public static void main(String[] args) {
+		User user=new User();
+		user.setLogin("user1");
+		user.setPassword("user1");
+		user.setId(146L);
+		new OptionsMenu().execute(user);
+	}
+	
 
 }
