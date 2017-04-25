@@ -7,6 +7,7 @@ import javax.jws.WebService;
 
 import com.sdi.business.exception.BusinessException;
 import com.sdi.model.User;
+import com.sdi.model.UserDTO;
 
 /**
  * Session Bean implementation class EjbAdminService
@@ -47,4 +48,8 @@ public class EjbAdminService implements RemoteAdminService, LocalAdminService {
 		return new AdminServiceImpl().findUserById(id);
 	}
 
+	@Override
+	public List<UserDTO> findAllUsersDTO() throws BusinessException {
+		return new AdminServiceImpl().findAllUsersDTO();
+	}
 }

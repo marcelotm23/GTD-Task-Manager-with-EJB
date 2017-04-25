@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.sdi.model.User;
+import com.sdi.model.UserDTO;
 import com.sdi.model.types.UserStatus;
 import com.sdi.persistence.UserDao;
 import com.sdi.persistence.util.JdbcTemplate;
@@ -23,6 +24,24 @@ public class UserDaoJdbcImpl implements UserDao {
 			user.setIsAdmin(rs.getBoolean("isAdmin"));
 			user.setStatus(UserStatus.valueOf(rs.getString("status")));
 			return user;
+		}
+	}
+	
+	public class UserDTOMapper implements RowMapper<UserDTO> {
+		@Override
+		public UserDTO toObject(ResultSet rs) throws SQLException {
+			UserDTO userDTO = new UserDTO();
+			userDTO.setId(rs.getLong("id"));
+			userDTO.setLogin(rs.getString("login"));
+			userDTO.setEmail(rs.getString("email"));
+			userDTO.setIsAdmin(rs.getBoolean("isAdmin"));
+			userDTO.setStatus(UserStatus.valueOf(rs.getString("status")));
+			userDTO.setTareasCompletadas(rs.getInt("COMPLETADAS"));
+			userDTO.setTareasCompletadasRetrasadas(rs
+					.getInt("COMPLETADASRETRASADAS"));
+			userDTO.setTareasPlanificadas(rs.getInt("PLANIFICADAS"));
+			userDTO.setTareasSinPlanificar(rs.getInt("SINPLANIFICAR"));
+			return userDTO;
 		}
 	}
 
@@ -75,4 +94,9 @@ public class UserDaoJdbcImpl implements UserDao {
 				new UserMapper(), login, password);
 	}
 
+	@Override
+	public List<UserDTO> findAllDTO() {
+		return jdbcTemplate.queryForList("USER_FIND_ALL_DTO",
+				new UserDTOMapper());
+	}
 }

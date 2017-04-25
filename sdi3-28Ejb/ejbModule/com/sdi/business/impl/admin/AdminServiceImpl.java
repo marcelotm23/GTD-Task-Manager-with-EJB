@@ -9,6 +9,7 @@ import com.sdi.business.impl.admin.command.DisableUserCommand;
 import com.sdi.business.impl.admin.command.EnableUserCommand;
 import com.sdi.business.impl.command.Command;
 import com.sdi.model.User;
+import com.sdi.model.UserDTO;
 import com.sdi.persistence.Persistence;
 
 public class AdminServiceImpl implements AdminService {
@@ -48,4 +49,13 @@ public class AdminServiceImpl implements AdminService {
 		}).execute();
 	}
 
+	@Override
+	public List<UserDTO> findAllUsersDTO() throws BusinessException {
+		return (new Command<List<UserDTO>>() {
+			@Override
+			public List<UserDTO> execute() throws BusinessException {
+				return Persistence.getUserDao().findAllDTO();
+			}
+		}).execute();
+	}
 }
