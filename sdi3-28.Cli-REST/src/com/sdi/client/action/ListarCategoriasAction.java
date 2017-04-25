@@ -7,7 +7,7 @@ import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 
 import com.sdi.client.Authenticator;
-import com.sdi.client.Category;
+import com.sdi.client.dtos.Category;
 import com.sdi.util.Output;
 
 import alb.util.menu.Action;

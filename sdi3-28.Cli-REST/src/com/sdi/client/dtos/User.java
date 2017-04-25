@@ -1,11 +1,11 @@
-package com.sdi.model;
+package com.sdi.client.dtos;
 
 import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import com.sdi.model.types.UserStatus;
+import com.sdi.client.dtos.types.UserStatus;
 
 /**
  * An implementation of the DTO pattern

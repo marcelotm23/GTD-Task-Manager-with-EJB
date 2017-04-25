@@ -14,6 +14,7 @@ import javax.ws.rs.core.MediaType;
 import com.sdi.business.exception.BusinessException;
 import com.sdi.model.Category;
 import com.sdi.model.Task;
+import com.sdi.model.User;
 
 @Path("/ServiceRs")
 public interface ServiceRest {
@@ -24,7 +25,6 @@ public interface ServiceRest {
 	public List<Category> findCategoriesByUsername(@PathParam("username")String username)
 			throws BusinessException;
 
-	
 	@PUT
 	@Path("saveTask")
 	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})

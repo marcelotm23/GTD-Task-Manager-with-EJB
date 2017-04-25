@@ -1,6 +1,8 @@
 package com.sdi.client.action;
 
 import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.core.MediaType;
 
 import com.sdi.client.Authenticator;
 
@@ -17,11 +19,11 @@ public class FinalizarTareaAction implements Action{
 	public void execute() throws Exception {
 		
 		Long id = Console.readLong("Id de la tarea");
-//		ClientBuilder.newClient() 
-//		      .register( new Authenticator("sdi", "password") ) 
-//		      .target( REST_SERVICE_URL ) 
-//		      .request()
-//		      .put( id ); 
+		ClientBuilder.newClient() 
+		      .register( new Authenticator("sdi", "password") ) 
+		      .target( REST_SERVICE_URL ) 
+		      .request()
+		      .put(Entity.entity(id, MediaType.APPLICATION_XML )); 
 	}
 
 }

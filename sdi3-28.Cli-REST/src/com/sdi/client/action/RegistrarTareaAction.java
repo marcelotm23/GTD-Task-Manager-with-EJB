@@ -5,7 +5,7 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
 
 import com.sdi.client.Authenticator;
-import com.sdi.client.Task;
+import com.sdi.client.dtos.Task;
 
 import alb.util.console.Console;
 import alb.util.date.DateUtil;

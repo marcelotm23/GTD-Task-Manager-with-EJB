@@ -12,6 +12,7 @@ import com.sdi.rest.ServiceRest;
 public class ServiceRestImpl implements ServiceRest{
 
 	private TaskService taskService = Factories.services.getTaskService();
+	//TODO No lanzar Bussiness
 
 	@Override
 	public Long saveTask(Task task) throws BusinessException {
@@ -34,8 +35,5 @@ public class ServiceRestImpl implements ServiceRest{
 	public void markTaskAsFinished(Long id) throws BusinessException {
 		taskService.markTaskAsFinished(id);
 	}
-
-	
-	
 	
 }

@@ -9,7 +9,7 @@ import javax.ws.rs.core.MediaType;
 import alb.util.menu.Action;
 
 import com.sdi.client.Authenticator;
-import com.sdi.client.Task;
+import com.sdi.client.dtos.Task;
 import com.sdi.util.Output;
 
 public class ListarTareasAction implements Action{

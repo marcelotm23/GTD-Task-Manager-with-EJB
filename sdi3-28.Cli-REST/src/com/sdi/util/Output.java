@@ -4,8 +4,8 @@ import java.util.List;
 
 import alb.util.console.Console;
 
-import com.sdi.client.Category;
-import com.sdi.client.Task;
+import com.sdi.client.dtos.Category;
+import com.sdi.client.dtos.Task;
 
 public class Output {
 
