@@ -25,9 +25,9 @@ urlPatterns = { "/restrictedAdmin/*" },
 initParams = { @WebInitParam(name = "LoginParam", value = "/restricted/listadoTareas.xhtml") })
 public class AdminFilter implements Filter {
 
-	// Necesitamos acceder a los parámetros de inicialización en
-	// el método doFilter por lo que necesitamos la variable
-	// config que se inicializará en init()
+	// Necesitamos acceder a los parï¿½metros de inicializaciï¿½n en
+	// el mï¿½todo doFilter por lo que necesitamos la variable
+	// config que se inicializarï¿½ en init()
 	FilterConfig config = null;
 
 	/**
@@ -49,7 +49,7 @@ public class AdminFilter implements Filter {
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
-		// Si no es petición HTTP nada que hacer
+		// Si no es peticiï¿½n HTTP nada que hacer
 		if (!(request instanceof HttpServletRequest)) {
 
 			chain.doFilter(request, response);
@@ -65,7 +65,7 @@ public class AdminFilter implements Filter {
 			
 			String loginForm = config.getInitParameter("LoginParam");
 
-			// Si no hay login, redirección al formulario de login
+			// Si no hay login, redirecciï¿½n al formulario de login
 
 			res.sendRedirect(req.getContextPath() + loginForm);
 
@@ -75,7 +75,7 @@ public class AdminFilter implements Filter {
 		if(!u.getIsAdmin()) {
 			String loginForm = config.getInitParameter("LoginParam");
 
-			// Si no hay login, redirección al formulario de login
+			// Si no hay login, redirecciï¿½n al formulario de login
 
 			res.sendRedirect(req.getContextPath() + loginForm);
 

@@ -24,8 +24,7 @@ public class ListarCategoriasAction implements Action {
 		};
 
 		List<Category> res = ClientBuilder.newClient()
-//		.register(new Authenticator(user.getLogin(), user.getPassword()))
-		.register(new Authenticator("sdi", "password"))
+		.register(new Authenticator(user.getLogin(), user.getPassword()))
 		.target(REST_SERVICE_URL)
 		.path(user.getLogin()) 
 		.request()

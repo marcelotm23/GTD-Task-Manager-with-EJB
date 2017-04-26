@@ -26,8 +26,7 @@ public class ListarTareasAction implements Action{
 		};
 
 		List<Task> res = ClientBuilder.newClient()
-//		.register(new Authenticator(user.getLogin(), user.getPassword()))
-		.register(new Authenticator("sdi", "password"))
+		.register(new Authenticator(user.getLogin(), user.getPassword()))
 		.target(REST_SERVICE_URL)
 		.path( String.valueOf(276) ) 
 		.request()

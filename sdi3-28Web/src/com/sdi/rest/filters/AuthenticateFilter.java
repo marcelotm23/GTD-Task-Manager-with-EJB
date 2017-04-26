@@ -10,20 +10,29 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpServletRequest;
+import javax.xml.bind.DatatypeConverter;
+
+import com.sdi.business.UserService;
+import com.sdi.infrastructure.Factories;
+import com.sdi.model.User;
+import com.sdi.model.types.UserStatus;
 
 /**
  * Servlet Filter implementation class AuthenticateFilter
  */
 @WebFilter(dispatcherTypes = { DispatcherType.REQUEST }, 
-urlPatterns = { "/rest/ServiceRS/*" })
+urlPatterns = { "/rest/LoginRs/*","/rest/ServiceRs/*"})
 public class AuthenticateFilter implements Filter {
 
-    /**
-     * Default constructor. 
-     */
-    public AuthenticateFilter() {
-        // TODO Auto-generated constructor stub
-    }
+	private UserService userService = Factories.services.getUserService();
+
+	/**
+	 * Default constructor.
+	 */
+	public AuthenticateFilter() {
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see Filter#destroy()
@@ -35,11 +44,39 @@ public class AuthenticateFilter implements Filter {
 	/**
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		// TODO Auto-generated method stub
-		// place your code here
+	public void doFilter(ServletRequest request, ServletResponse response,
+			FilterChain chain) throws IOException, ServletException {
+		// Si no es petición HTTP nada que hacer
+		if (!(request instanceof HttpServletRequest)) {
 
-		// pass the request along the filter chain
+			chain.doFilter(request, response);
+
+			return;
+		}
+		// En el resto de casos se verifica que se haya hecho login previamente
+		HttpServletRequest req = (HttpServletRequest) request;
+
+		String cabecera = (String) req.getHeader("Authorization");
+		if (cabecera != null) {
+
+			String[] sinEspacio = cabecera.split(" ");
+			String decodicado=new String(
+					DatatypeConverter.parseBase64Binary(sinEspacio[1]));
+			String[] datos = decodicado.split(":");
+			String user = datos[0];
+			String password = datos[1];
+			User usr = userService.findLoggableUser(user, password);
+		
+			if (usr != null && usr.getStatus().equals(UserStatus.ENABLED)) {
+				if(usr.getIsAdmin()){
+					throw new ServletException("Solo los usuarios estandares pueden"
+							+ " emplear este cliente.");
+				}
+				return;
+			} else {
+				chain.doFilter(request, response);
+			}
+		}
 		chain.doFilter(request, response);
 	}
 

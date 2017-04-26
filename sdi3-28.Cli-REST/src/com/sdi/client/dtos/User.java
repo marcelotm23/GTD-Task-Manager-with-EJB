@@ -68,6 +68,15 @@ public class User implements Serializable {
 	public Boolean getIsAdmin() {
 		return isAdmin;
 	}
+	
+	@XmlElement
+	public UserStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(UserStatus status) {
+		this.status = status;
+	}
 
 	@Override
 	public String toString() {
@@ -77,14 +86,7 @@ public class User implements Serializable {
 				+ ", password=" + password 
 				+ ", isAdmin=" + isAdmin + "]";
 	}
-	@XmlElement
-	public UserStatus getStatus() {
-		return status;
-	}
-
-	public void setStatus(UserStatus status) {
-		this.status = status;
-	}
+	
 
 	@Override
 	public int hashCode() {

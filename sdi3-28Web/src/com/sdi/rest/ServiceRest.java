@@ -14,7 +14,6 @@ import javax.ws.rs.core.MediaType;
 import com.sdi.business.exception.BusinessException;
 import com.sdi.model.Category;
 import com.sdi.model.Task;
-import com.sdi.model.User;
 
 @Path("/ServiceRs")
 public interface ServiceRest {
