@@ -21,8 +21,8 @@ import com.sdi.model.User;
  * Servlet Filter implementation class LoginFilter
  */
 @WebFilter(dispatcherTypes = { DispatcherType.REQUEST }, 
-urlPatterns = { "/restrictedAdmin/*" },
-initParams = { @WebInitParam(name = "LoginParam", value = "/restricted/listadoTareas.xhtml") })
+urlPatterns = { "/privateAdmin/*" },
+initParams = { @WebInitParam(name = "LoginParam", value = "/privateUser/listadoTareas.xhtml") })
 public class AdminFilter implements Filter {
 
 	// Necesitamos acceder a los par�metros de inicializaci�n en

@@ -39,11 +39,11 @@
 		<navigation-case>
 			<from-action>#{login.verify}</from-action>
 			<from-outcome>user</from-outcome>
-			<to-view-id>/restricted/listadoTareasInbox.xhtml</to-view-id>
+			<to-view-id>/privateUser/listadoTareasInbox.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>admin</from-outcome>
-			<to-view-id>/restrictedAdmin/listadoUsuarios.xhtml</to-view-id>
+			<to-view-id>/privateAdmin/listadoUsuarios.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>registrarse</from-outcome>
@@ -54,7 +54,7 @@
 	<!-- Usuario -->
 	<!-- Opciones -->
 	<navigation-rule>
-		<from-view-id>/restricted/*</from-view-id>
+		<from-view-id>/privateUser/*</from-view-id>
 		<navigation-case>
 			<from-action>#{login.logout}</from-action>
 			<from-outcome>exito</from-outcome>
@@ -63,29 +63,29 @@
 		<navigation-case>
 			<from-action>#{controller.mostrarTareas}</from-action>
 			<from-outcome>exito</from-outcome>
-			<to-view-id>/restricted/listadoTareasInbox.xhtml</to-view-id>
+			<to-view-id>/privateUser/listadoTareasInbox.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-action>#{controller.mostrarTareasHoy}</from-action>
 			<from-outcome>exito</from-outcome>
-			<to-view-id>/restricted/listadoTareas.xhtml</to-view-id>
+			<to-view-id>/privateUser/listadoTareas.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-action>#{controller.mostrarTareasSemana}</from-action>
 			<from-outcome>exito</from-outcome>
-			<to-view-id>/restricted/listadoTareasSemana.xhtml</to-view-id>
+			<to-view-id>/privateUser/listadoTareasSemana.xhtml</to-view-id>
 		</navigation-case> 
 		<navigation-case>
 			<from-action>#{controller.cargarTareasCategoria}</from-action>
 			<from-outcome>exito</from-outcome>
-			<to-view-id>/restricted/listadoTareas.xhtml</to-view-id>
+			<to-view-id>/privateUser/listadoTareas.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	
 	<!-- Admin -->
 	<!-- Opciones -->
 	<navigation-rule>
-		<from-view-id>/restrictedAdmin/*</from-view-id>
+		<from-view-id>/privateAdmin/*</from-view-id>
 		<navigation-case>
 			<from-action>#{login.logout}</from-action>
 			<from-outcome>exito</from-outcome>
@@ -94,13 +94,13 @@
 		<navigation-case>
 			<from-action>#{controller.listado}</from-action>
 			<from-outcome>exito</from-outcome>
-			<to-view-id>/restrictedAdmin/listadoUsuarios.xhtml</to-view-id>
+			<to-view-id>/privateAdmin/listadoUsuarios.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	
 	<!-- Listado de usuarios -->
 	<navigation-rule>
-		<from-view-id>/restrictedAdmin/listadoUsuarios.xhtml</from-view-id>
+		<from-view-id>/privateAdmin/listadoUsuarios.xhtml</from-view-id>
 		<navigation-case>
 			<from-action>#{controller.cambiarEstado}</from-action>
 			<from-outcome>exito</from-outcome>
@@ -115,73 +115,73 @@
 	
 	<!-- Listado de tareas -->
 	<navigation-rule>
-		<from-view-id>/restricted/listadoTareas.xhtml</from-view-id>
+		<from-view-id>/privateUser/listadoTareas.xhtml</from-view-id>
 		<navigation-case>
 			<from-action>#{controller.finalizarTarea}</from-action>
 			<from-outcome>exito</from-outcome>
-			<to-view-id>/restricted/listadoTareas.xhtml</to-view-id>
+			<to-view-id>/privateUser/listadoTareas.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>editar</from-outcome>
-			<to-view-id>/restricted/editarTarea.xhtml</to-view-id>
+			<to-view-id>/privateUser/editarTarea.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>annadir</from-outcome>
-			<to-view-id>/restricted/annadirTarea.xhtml</to-view-id>
+			<to-view-id>/privateUser/annadirTarea.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<!-- Listado de tareas de Inbox -->
 	<navigation-rule>
-		<from-view-id>/restricted/listadoTareasInbox.xhtml</from-view-id>
+		<from-view-id>/privateUser/listadoTareasInbox.xhtml</from-view-id>
 		<navigation-case>
 			<from-action>#{controller.finalizarTarea}</from-action>
 			<from-outcome>exito</from-outcome>
-			<to-view-id>/restricted/listadoTareas.xhtml</to-view-id>
+			<to-view-id>/privateUser/listadoTareas.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>editar</from-outcome>
-			<to-view-id>/restricted/editarTarea.xhtml</to-view-id>
+			<to-view-id>/privateUser/editarTarea.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>annadir</from-outcome>
-			<to-view-id>/restricted/annadirTarea.xhtml</to-view-id>
+			<to-view-id>/privateUser/annadirTarea.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<!-- Listado de tareas de Semana -->
 	<navigation-rule>
-		<from-view-id>/restricted/listadoTareasSemana.xhtml</from-view-id>
+		<from-view-id>/privateUser/listadoTareasSemana.xhtml</from-view-id>
 		<navigation-case>
 			<from-action>#{controller.finalizarTarea}</from-action>
 			<from-outcome>exito</from-outcome>
-			<to-view-id>/restricted/listadoTareasSemana.xhtml</to-view-id>
+			<to-view-id>/privateUser/listadoTareasSemana.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>editar</from-outcome>
-			<to-view-id>/restricted/editarTarea.xhtml</to-view-id>
+			<to-view-id>/privateUser/editarTarea.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>annadir</from-outcome>
-			<to-view-id>/restricted/annadirTarea.xhtml</to-view-id>
+			<to-view-id>/privateUser/annadirTarea.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	
 	<!-- Editar tarea -->
 	<navigation-rule>
-		<from-view-id>/restricted/editarTarea.xhtml</from-view-id>
+		<from-view-id>/privateUser/editarTarea.xhtml</from-view-id>
 		<navigation-case>
 			<from-action>#{controller.salvaTarea}</from-action>
 			<from-outcome>exito</from-outcome>
-			<to-view-id>/restricted/listadoTareas.xhtml</to-view-id>
+			<to-view-id>/privateUser/listadoTareas.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	
 	<!-- Añadir tarea -->
 	<navigation-rule>
-		<from-view-id>/restricted/annadirTarea.xhtml</from-view-id>
+		<from-view-id>/privateUser/annadirTarea.xhtml</from-view-id>
 		<navigation-case>
 			<from-action>#{controller.salvaTarea}</from-action>
 			<from-outcome>exito</from-outcome>
-			<to-view-id>/restricted/listadoTareas.xhtml</to-view-id>
+			<to-view-id>/privateUser/listadoTareas.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	
@@ -197,11 +197,11 @@
 	
 	<!-- NO IMPLEMENTADO, seria el editarUsuario -->
 	<navigation-rule>
-		<from-view-id>/restricted/editForm.xhtml</from-view-id>
+		<from-view-id>/privateUser/editForm.xhtml</from-view-id>
 		<navigation-case>
 			<from-action>#{controller.salva}</from-action>
 			<from-outcome>exito</from-outcome>
-			<to-view-id>/restricted/listadoTareas.xhtml</to-view-id>
+			<to-view-id>/privateUser/listadoTareas.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	
