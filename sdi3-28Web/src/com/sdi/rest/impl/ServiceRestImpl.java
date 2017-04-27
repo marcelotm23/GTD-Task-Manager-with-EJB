@@ -20,9 +20,9 @@ public class ServiceRestImpl implements ServiceRest{
 	}
 	
 	@Override
-	public List<Category> findCategoriesByUsername(String username)
+	public List<Category> findCategoriesByUserId(Long id)
 			throws BusinessException {
-		return taskService.findCategoriesByUsername(username);
+		return taskService.findCategoriesByUserId(id);
 	}
 
 	@Override

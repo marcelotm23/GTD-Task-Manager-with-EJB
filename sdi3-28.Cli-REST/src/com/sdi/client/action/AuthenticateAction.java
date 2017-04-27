@@ -13,7 +13,7 @@ import com.sdi.client.ui.OptionsMenu;
 
 public class AuthenticateAction implements Action{
 	private static final String REST_SERVICE_URL = 
-			"http://localhost:8280/sdi3-28.Web/rest/LoginRs/authenticate";
+			"http://localhost:9000/sdi3-28.Web/rest/LoginRs/authenticate";
 
 	@Override
 	public void execute() throws Exception {

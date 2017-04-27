@@ -18,7 +18,7 @@ public class AuthenticateServiceRestImpl implements AutenticateServiceRest{
 		String datos64=new String(
 				DatatypeConverter.parseBase64Binary(datos));
 		String[] datosSeparados=datos64.split(":");
-		System.out.println("DATOS_"+datosSeparados.toString());
+		
 		return userService.findLoggableUser(datosSeparados[0], datosSeparados[1]);
 	}
 

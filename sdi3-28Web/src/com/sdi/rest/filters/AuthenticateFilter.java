@@ -72,12 +72,12 @@ public class AuthenticateFilter implements Filter {
 					throw new ServletException("Solo los usuarios estandares pueden"
 							+ " emplear este cliente.");
 				}
-				return;
-			} else {
 				chain.doFilter(request, response);
+			} else {
+				return;
 			}
 		}
-		chain.doFilter(request, response);
+		
 	}
 
 	/**

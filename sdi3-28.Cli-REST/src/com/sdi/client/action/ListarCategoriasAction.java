@@ -16,7 +16,7 @@ import com.sdi.util.Output;
 public class ListarCategoriasAction implements Action {
 
 	private static final String REST_SERVICE_URL = 
-			"http://localhost:8280/sdi3-28.Web/rest/ServiceRs/findCategoriesByUsername";
+			"http://localhost:8280/sdi3-28.Web/rest/ServiceRs/findCategoriesByUserId";
 
 	@Override
 	public void execute(User user) throws Exception {
@@ -26,7 +26,7 @@ public class ListarCategoriasAction implements Action {
 		List<Category> res = ClientBuilder.newClient()
 		.register(new Authenticator(user.getLogin(), user.getPassword()))
 		.target(REST_SERVICE_URL)
-		.path(user.getLogin()) 
+		.path(user.getId().toString()) 
 		.request()
 		.accept( MediaType.APPLICATION_XML )
 		.get()

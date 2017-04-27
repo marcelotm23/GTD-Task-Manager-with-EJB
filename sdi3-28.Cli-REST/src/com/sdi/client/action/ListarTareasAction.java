@@ -9,6 +9,9 @@ import javax.ws.rs.core.MediaType;
 
 
 
+
+import alb.util.console.Console;
+
 import com.sdi.client.Authenticator;
 import com.sdi.client.dtos.Task;
 import com.sdi.client.dtos.User;
@@ -22,18 +25,19 @@ public class ListarTareasAction implements Action{
 
 	@Override
 	public void execute(User user) throws Exception {
+		Long id=Console.readLong("Id de la categoría");
 		GenericType<List<Task>> tareas = new GenericType<List<Task>>() {
 		};
 
 		List<Task> res = ClientBuilder.newClient()
 		.register(new Authenticator(user.getLogin(), user.getPassword()))
 		.target(REST_SERVICE_URL)
-		.path( String.valueOf(276) ) 
+		.path( String.valueOf(id) ) 
 		.request()
 		.accept( MediaType.APPLICATION_XML )
 		.get()
 		.readEntity(tareas);
-		System.out.println(res.size());
+		
 		Output.printTasks(res);
 	}
 

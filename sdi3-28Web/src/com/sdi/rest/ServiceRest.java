@@ -19,9 +19,9 @@ import com.sdi.model.Task;
 public interface ServiceRest {
 	
 	@GET 
-	@Path("findCategoriesByUsername/{username}")
+	@Path("findCategoriesByUserId/{id}")
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-	public List<Category> findCategoriesByUsername(@PathParam("username")String username)
+	public List<Category> findCategoriesByUserId(@PathParam("id")Long id)
 			throws BusinessException;
 
 	@PUT
