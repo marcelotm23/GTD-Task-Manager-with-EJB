@@ -1,7 +1,6 @@
 package com.sdi.persistence;
 
 import com.sdi.persistence.impl.CategoryDaoJdbcImpl;
-import com.sdi.persistence.impl.CategoryDtoImpl;
 import com.sdi.persistence.impl.TaskDaoJdbcImpl;
 import com.sdi.persistence.impl.UserDaoJdbcImpl;
 
@@ -19,8 +18,5 @@ public class Persistence {
 		return new CategoryDaoJdbcImpl();
 	}
 
-	public static CategoryDto getCategoryDto() {
-		return new CategoryDtoImpl();
-	}
 
 }
