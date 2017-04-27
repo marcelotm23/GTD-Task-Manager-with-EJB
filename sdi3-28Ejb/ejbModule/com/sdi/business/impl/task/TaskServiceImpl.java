@@ -188,4 +188,18 @@ public class TaskServiceImpl implements TaskService {
 				}).execute();
 	}
 
+
+	@Override
+	public List<Task> findNotFinishedTasksByCategoryId(final Long id)
+			throws BusinessException {
+		return (new Command<List<Task>>() {
+			@Override
+			public List<Task> execute() throws BusinessException {
+
+				return Persistence.getTaskDao()
+						.findNotFinishedTasksByCategoryId(id);
+			}
+		}).execute();
+	}
+
 }

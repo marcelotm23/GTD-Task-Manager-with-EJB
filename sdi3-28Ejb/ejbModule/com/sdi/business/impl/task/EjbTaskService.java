@@ -116,4 +116,10 @@ public class EjbTaskService implements RemoteTaskService, LocalTaskService {
 		return new TaskServiceImpl().findFinishedInboxTasksByUserId(userId);
 	}
 
+	@Override
+	public List<Task> findNotFinishedTasksByCategoryId(Long id)
+			throws BusinessException {
+		return new TaskServiceImpl().findNotFinishedTasksByCategoryId(id);
+	}
+
 }

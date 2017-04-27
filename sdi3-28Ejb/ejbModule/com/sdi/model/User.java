@@ -2,6 +2,9 @@ package com.sdi.model;
 
 import java.io.Serializable;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import com.sdi.model.types.UserStatus;
 
 /**
@@ -9,6 +12,7 @@ import com.sdi.model.types.UserStatus;
  * 
  * @author alb
  */
+@XmlRootElement(name = "user")
 public class User implements Serializable {
 	
 	/**
@@ -27,7 +31,7 @@ public class User implements Serializable {
 	public void setIsAdmin(Boolean isAdmin) {
 		this.isAdmin = isAdmin;
 	}
-
+	@XmlElement
 	public Long getId() {
 		return id;
 	}
@@ -36,7 +40,7 @@ public class User implements Serializable {
 		this.id = id;
 		return this;
 	}
-
+	@XmlElement
 	public String getLogin() {
 		return login;
 	}
@@ -44,7 +48,7 @@ public class User implements Serializable {
 	public void setLogin(String login) {
 		this.login = login;
 	}
-
+	@XmlElement
 	public String getEmail() {
 		return email;
 	}
@@ -52,7 +56,7 @@ public class User implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
+	@XmlElement
 	public String getPassword() {
 		return password;
 	}
@@ -60,7 +64,7 @@ public class User implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
+	@XmlElement
 	public Boolean getIsAdmin() {
 		return isAdmin;
 	}
@@ -73,7 +77,7 @@ public class User implements Serializable {
 				+ ", password=" + password 
 				+ ", isAdmin=" + isAdmin + "]";
 	}
-
+	@XmlElement
 	public UserStatus getStatus() {
 		return status;
 	}

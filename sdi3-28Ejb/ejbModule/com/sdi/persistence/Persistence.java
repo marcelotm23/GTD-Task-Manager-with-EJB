@@ -18,4 +18,5 @@ public class Persistence {
 		return new CategoryDaoJdbcImpl();
 	}
 
+
 }

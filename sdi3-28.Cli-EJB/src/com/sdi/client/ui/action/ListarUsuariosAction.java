@@ -10,7 +10,6 @@ import alb.util.menu.Action;
 
 import com.sdi.business.AdminService;
 import com.sdi.business.exception.BusinessException;
-import com.sdi.model.User;
 import com.sdi.model.UserDTO;
 
 public class ListarUsuariosAction implements Action {
@@ -30,20 +29,25 @@ public class ListarUsuariosAction implements Action {
 			if (users.size() == 0) {
 				Console.println("No hay usuarios registrados");
 			} else {
-				Console.println("Id\tLogin\tEmail\tAdministrador\tEstado");
-				for (UserDTO user : users) {
-					Console.println(user.getId() + "\t" + user.getLogin()
-							+ "\t" + user.getEmail() + "\t" + user.getIsAdmin()
-							+ "\t" + user.getStatus());
-				}
-				// TODO Falta el número de
-				// tareas completadas, el número de tareas completadas
-				// retrasadas, el
-				// número de tareas planificadas y el número de tareas sin
-				// planificar
+				printUsersList(users);
 			}
 		} catch (BusinessException e) {
 			Console.println("ERROR:" + e.getMessage());
+		}
+	}
+
+	private void printUsersList(List<UserDTO> users) {
+		Console.println("Id\tLogin\tEmail\tAdministrador\tEstado"
+				+ "\tNº tareas completadas\tNº tareas retrasadas\t"
+				+ "Nº tareas planificadas\tNº tareas sin planificar");
+		for (UserDTO user : users) {
+			Console.println(user.getId() + "\t" + user.getLogin()
+					+ "\t" + user.getEmail() + "\t" + user.getIsAdmin()
+					+ "\t" + user.getStatus() +"\t\t\t"+
+					user.getTareasCompletadas()+"\t\t\t"
+					+user.getTareasCompletadasRetrasadas()+"\t\t\t"
+					+user.getTareasPlanificadas()+"\t\t\t"
+					+user.getTareasSinPlanificar());
 		}
 	}
 }

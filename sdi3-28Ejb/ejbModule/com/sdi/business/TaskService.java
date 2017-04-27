@@ -49,4 +49,8 @@ public interface TaskService {
 	public List<Task> findFinishedInboxTasksByUserId(Long userId)
 			throws BusinessException;
 
+
+	public List<Task> findNotFinishedTasksByCategoryId(Long id)
+			throws BusinessException;
+
 }
