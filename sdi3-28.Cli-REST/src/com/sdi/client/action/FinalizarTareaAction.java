@@ -5,7 +5,7 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
 
 import com.sdi.client.Authenticator;
-import com.sdi.client.dtos.User;
+import com.sdi.client.model.User;
 import com.sdi.client.ui.Action;
 
 import alb.util.console.Console;

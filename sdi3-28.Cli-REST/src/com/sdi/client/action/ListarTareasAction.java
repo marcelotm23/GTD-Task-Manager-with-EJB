@@ -10,11 +10,12 @@ import javax.ws.rs.core.MediaType;
 
 
 
+
 import alb.util.console.Console;
 
 import com.sdi.client.Authenticator;
-import com.sdi.client.dtos.Task;
-import com.sdi.client.dtos.User;
+import com.sdi.client.model.Task;
+import com.sdi.client.model.User;
 import com.sdi.client.ui.Action;
 import com.sdi.util.Output;
 

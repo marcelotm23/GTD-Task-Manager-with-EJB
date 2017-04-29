@@ -1,6 +1,6 @@
 package com.sdi.client.ui;
 
-import com.sdi.client.dtos.User;
+import com.sdi.client.model.User;
 
 
 

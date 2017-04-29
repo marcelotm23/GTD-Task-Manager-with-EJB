@@ -5,7 +5,7 @@ import com.sdi.client.action.FinalizarTareaAction;
 import com.sdi.client.action.ListarCategoriasAction;
 import com.sdi.client.action.ListarTareasAction;
 import com.sdi.client.action.RegistrarTareaAction;
-import com.sdi.client.dtos.User;
+import com.sdi.client.model.User;
 
 public class OptionsMenu extends BaseMenu {
 
