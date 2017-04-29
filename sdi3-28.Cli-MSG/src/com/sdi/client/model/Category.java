@@ -1,4 +1,4 @@
-package com.sdi.client.dtos;
+package com.sdi.client.model;
 
 import java.io.Serializable;
 

@@ -3,7 +3,7 @@ package com.sdi.client.ui;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sdi.client.dtos.User;
+import com.sdi.client.model.User;
 
 import alb.util.console.Console;
 import alb.util.console.Printer;
