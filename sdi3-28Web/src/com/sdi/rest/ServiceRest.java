@@ -11,9 +11,9 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.sdi.business.exception.BusinessException;
 import com.sdi.model.Category;
 import com.sdi.model.Task;
+import com.sdi.rest.exception.ServerException;
 
 @Path("/ServiceRs")
 public interface ServiceRest {
@@ -21,24 +21,25 @@ public interface ServiceRest {
 	@GET 
 	@Path("findCategoriesByUserId/{id}")
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-	public List<Category> findCategoriesByUserId(@PathParam("id")Long id)
-			throws BusinessException;
+	public List<Category> findCategoriesByUserId(@PathParam("id")Long id) 
+			throws ServerException;
 
 	@PUT
 	@Path("saveTask")
 	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-	public Long saveTask(Task task) throws BusinessException;
+	public void saveTask(Task task) throws ServerException;
 
 	@POST 
-	@Path("markTaskAsFinished/{id}")
+	@Path("markTaskAsFinished")
 	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-	public void markTaskAsFinished(@PathParam("id")Long id) throws BusinessException;	
+	public void markTaskAsFinished(String id) 
+			throws ServerException;	
 	
 	@GET 
 	@Path("findNotFinishedTasksByCategoryId/{id}")
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public List<Task> findNotFinishedTasksByCategoryId(@PathParam("id")Long id)
-			throws BusinessException;
+			throws ServerException;
 
 
 

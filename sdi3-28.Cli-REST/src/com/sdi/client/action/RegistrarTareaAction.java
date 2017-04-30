@@ -32,7 +32,7 @@ public class RegistrarTareaAction implements Action{
 		.register( new Authenticator(user.getLogin(), user.getPassword()) ) 
 		.target( REST_SERVICE_URL ) 
 		.request() 
-		.put( Entity.entity(task, MediaType.APPLICATION_JSON) ); 
+		.put( Entity.entity(task, MediaType.APPLICATION_XML) ); 
 		
 		Console.println("Tarea añadida");
 	}

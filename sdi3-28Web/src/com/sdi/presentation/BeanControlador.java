@@ -187,10 +187,10 @@ public class BeanControlador implements Serializable {
 	public String crearCuenta() {
 		UserService userService;
 		try {
-			//userService = Services.getUserService();
 			userService=Factories.services.getUserService();
 			usuario.setStatus(UserStatus.ENABLED);
 			userService.registerUser(usuario);
+			MessageToUser.writeGrowlMessageINFO("usuarioRegistrado");
 			return "exito"; 
 
 		}
