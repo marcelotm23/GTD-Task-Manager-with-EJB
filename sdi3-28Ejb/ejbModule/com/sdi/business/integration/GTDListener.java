@@ -10,6 +10,7 @@ import javax.jms.MessageListener;
 import alb.util.date.DateUtil;
 
 import com.sdi.business.TaskService;
+import com.sdi.business.UserService;
 import com.sdi.business.exception.BusinessException;
 import com.sdi.infrastructure.Factories;
 import com.sdi.model.Task;
@@ -21,7 +22,7 @@ import com.sdi.model.Task;
 		})
 public class GTDListener implements MessageListener {
 
-	private TaskService userService = Factories.services.getUserService();
+	private UserService userService = Factories.services.getUserService();
 	private TaskService taskService = Factories.services.getTaskService();
 
 	@Override
