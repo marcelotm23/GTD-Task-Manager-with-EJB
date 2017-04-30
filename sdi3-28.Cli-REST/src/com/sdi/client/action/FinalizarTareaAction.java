@@ -4,12 +4,11 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
 
+import alb.util.console.Console;
+
 import com.sdi.client.Authenticator;
-import com.sdi.client.model.Task;
 import com.sdi.client.model.User;
 import com.sdi.client.ui.Action;
-
-import alb.util.console.Console;
 
 
 public class FinalizarTareaAction implements Action{
@@ -21,15 +20,13 @@ public class FinalizarTareaAction implements Action{
 	@Override
 	public void execute(User user) throws Exception {
 		
-		Long id = Console.readLong("Id de la tarea");
-		Task task=new Task();
-		task.setId(id);
-		task.setUserId(user.getId());
+		String id = Console.readString("Id de la tarea");
+		
 		ClientBuilder.newClient() 
 		      .register( new Authenticator(user.getLogin(), user.getPassword()) ) 
 		      .target( REST_SERVICE_URL ) 
 		      .request()
-		      .post(Entity.entity(task, MediaType.APPLICATION_XML )); 
+		      .post(Entity.entity(id, MediaType.APPLICATION_XML )); 
 	}
 
 }

@@ -47,9 +47,9 @@ public class ServiceRestImpl implements ServiceRest{
 
 	
 	@Override
-	public void markTaskAsFinished(Task task) throws ServerException {
+	public void markTaskAsFinished(String id) throws ServerException {
 		try{
-			taskService.markTaskAsFinished(task.getId());
+			taskService.markTaskAsFinished(Long.parseLong(id));
 		} catch (BusinessException e) {
 			throw new ServerException(e.getMessage());
 		}

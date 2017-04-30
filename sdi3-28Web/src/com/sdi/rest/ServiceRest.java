@@ -32,7 +32,7 @@ public interface ServiceRest {
 	@POST 
 	@Path("markTaskAsFinished")
 	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-	public void markTaskAsFinished(Task task) 
+	public void markTaskAsFinished(String id) 
 			throws ServerException;	
 	
 	@GET 
