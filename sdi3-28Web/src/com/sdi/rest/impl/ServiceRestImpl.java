@@ -8,6 +8,7 @@ import com.sdi.infrastructure.Factories;
 import com.sdi.model.Category;
 import com.sdi.model.Task;
 import com.sdi.rest.ServiceRest;
+import com.sdi.rest.exception.ServerException;
 
 public class ServiceRestImpl implements ServiceRest{
 
@@ -15,25 +16,43 @@ public class ServiceRestImpl implements ServiceRest{
 	//TODO No lanzar Bussiness
 
 	@Override
-	public Long saveTask(Task task) throws BusinessException {
-		return taskService.createTask(task);
+	public void saveTask(Task task) throws ServerException {
+		try{
+			taskService.createTask(task);
+		} catch (BusinessException e) {
+			throw new ServerException(e.getMessage());
+		}
 	}
 	
 	@Override
-	public List<Category> findCategoriesByUserId(Long id)
-			throws BusinessException {
-		return taskService.findCategoriesByUserId(id);
+	public List<Category> findCategoriesByUserId(Long id) throws ServerException{
+		
+		try {
+			return taskService.findCategoriesByUserId(id);
+		} catch (BusinessException e) {
+			throw new ServerException(e.getMessage());
+		}
+		
 	}
 
 	@Override
-	public List<Task> findNotFinishedTasksByCategoryId(Long id) throws BusinessException {
-		return taskService.findNotFinishedTasksByCategoryId(id);
+	public List<Task> findNotFinishedTasksByCategoryId(Long id) 
+			throws ServerException {
+		try{
+			return taskService.findNotFinishedTasksByCategoryId(id);
+		} catch (BusinessException e) {
+			throw new ServerException(e.getMessage());
+		}
 	}
 
 	
 	@Override
-	public void markTaskAsFinished(Long id) throws BusinessException {
-		taskService.markTaskAsFinished(id);
+	public void markTaskAsFinished(Task task) throws ServerException {
+		try{
+			taskService.markTaskAsFinished(task.getId());
+		} catch (BusinessException e) {
+			throw new ServerException(e.getMessage());
+		}
 	}
 	
 }

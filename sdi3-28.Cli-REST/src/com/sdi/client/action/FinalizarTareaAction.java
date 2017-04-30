@@ -5,6 +5,7 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
 
 import com.sdi.client.Authenticator;
+import com.sdi.client.model.Task;
 import com.sdi.client.model.User;
 import com.sdi.client.ui.Action;
 
@@ -21,11 +22,14 @@ public class FinalizarTareaAction implements Action{
 	public void execute(User user) throws Exception {
 		
 		Long id = Console.readLong("Id de la tarea");
+		Task task=new Task();
+		task.setId(id);
+		task.setUserId(user.getId());
 		ClientBuilder.newClient() 
 		      .register( new Authenticator(user.getLogin(), user.getPassword()) ) 
 		      .target( REST_SERVICE_URL ) 
 		      .request()
-		      .put(Entity.entity(id, MediaType.APPLICATION_XML )); 
+		      .post(Entity.entity(task, MediaType.APPLICATION_XML )); 
 	}
 
 }
