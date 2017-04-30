@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.jms.JMSException;
+
 import alb.util.date.DateUtil;
 
 import com.sdi.business.AdminService;
@@ -115,7 +117,7 @@ public class ReinicioBBDD {
 
 	private static List<User> borrarUsuariosYCrearNuevos(
 			AdminService adminService, UserService userService,
-			List<User> usuarios) {
+			List<User> usuarios) throws JMSException {
 
 		List<User> listaUsuariosNuevos = new ArrayList<User>();
 

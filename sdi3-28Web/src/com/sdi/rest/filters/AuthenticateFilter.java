@@ -17,6 +17,7 @@ import com.sdi.business.UserService;
 import com.sdi.infrastructure.Factories;
 import com.sdi.model.User;
 import com.sdi.model.types.UserStatus;
+import com.sdi.rest.exception.ServerException;
 
 /**
  * Servlet Filter implementation class AuthenticateFilter
@@ -68,13 +69,13 @@ public class AuthenticateFilter implements Filter {
 			User usr = userService.findLoggableUser(user, password);
 		
 			if (usr != null && usr.getStatus().equals(UserStatus.ENABLED)) {
-				if(usr.getIsAdmin()){
+				if(usr.getIsAdmin()) {
 					throw new ServletException("Solo los usuarios estandares pueden"
 							+ " emplear este cliente.");
 				}
 				chain.doFilter(request, response);
 			} else {
-				return;
+				throw new IOException("Los datos de entrada no son correctos");
 			}
 		}
 		

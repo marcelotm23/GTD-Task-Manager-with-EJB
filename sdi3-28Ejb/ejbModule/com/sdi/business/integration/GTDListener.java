@@ -1,7 +1,10 @@
 package com.sdi.business.integration;
 
+import javax.annotation.Resource;
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.MessageDriven;
+import javax.ejb.SessionContext;
+import javax.jms.ConnectionFactory;
 import javax.jms.JMSException;
 import javax.jms.MapMessage;
 import javax.jms.Message;
@@ -24,6 +27,12 @@ public class GTDListener implements MessageListener {
 
 	private UserService userService = Factories.services.getUserService();
 	private TaskService taskService = Factories.services.getTaskService();
+	
+	@Resource(mappedName = "java:/ConnectionFactory")
+	private ConnectionFactory factory;
+
+	@Resource
+	private SessionContext ctx;
 
 	@Override
 	public void onMessage(Message msg) {
@@ -31,7 +40,6 @@ public class GTDListener implements MessageListener {
 		try {
 			process(msg);
 		} catch (JMSException jex) {
-			// TODO here we should log the exception
 			jex.printStackTrace();
 		}
 	}

@@ -1,6 +1,5 @@
 package com.sdi.client.ui;
 
-import com.sdi.client.action.AuthenticateAction;
 import com.sdi.client.action.FinalizarTareaAction;
 import com.sdi.client.action.ListarTareasAction;
 import com.sdi.client.action.RegistrarTareaAction;

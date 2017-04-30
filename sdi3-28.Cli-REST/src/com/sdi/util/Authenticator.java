@@ -1,4 +1,4 @@
-package com.sdi.client;
+package com.sdi.util;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;

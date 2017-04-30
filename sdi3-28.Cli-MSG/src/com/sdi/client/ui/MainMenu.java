@@ -16,6 +16,5 @@ public class MainMenu extends BaseMenu{
 
 	public static void main(String[] args) {
 		new MainMenu().execute();
-	
 	}
 }
