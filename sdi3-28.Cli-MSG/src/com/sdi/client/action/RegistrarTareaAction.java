@@ -26,7 +26,7 @@ public class RegistrarTareaAction extends AbstractAction{
 	}
 
 	@Override
-	public void onMessage(Message arg0) {
+	public void onMessage(MapMessage arg0) {
 		// TODO Auto-generated method stub
 		
 	}

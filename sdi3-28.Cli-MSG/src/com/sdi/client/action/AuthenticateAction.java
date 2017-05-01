@@ -33,12 +33,12 @@ public class AuthenticateAction extends AbstractAction{
 	}
 	
 	@Override
-	public void onMessage(Message msg) {
+	public void onMessage(MapMessage msg) {
 		System.out.println("GTD CLiente MSG: Msg recibido");
-		Object user;
+		Long idUser;
 		try {
-			user = msg.getObjectProperty("user");
-			if (user instanceof User) {
+			idUser = msg.getLong("idUser");
+			if (idUser != null) {
 				new OptionsMenu().execute();
 			}else{
 				Console.println("Usuario o password incorrectos");
@@ -46,8 +46,7 @@ public class AuthenticateAction extends AbstractAction{
 		} catch (JMSException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		
+		}	
 	}
 	
 	

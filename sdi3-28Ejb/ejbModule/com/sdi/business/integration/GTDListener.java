@@ -95,7 +95,8 @@ public class GTDListener implements MessageListener {
 			Session session) throws JMSException {
 		MapMessage msg = session.createMapMessage();
 		for (String key : msgMap.keySet()) {
-			msg.setObject(key, msg.getObject(key));
+			User user = (User) msgMap.get(key);
+			msg.setLong("idUser", user.getId());
 		}
 		return msg;
 	}
@@ -113,7 +114,6 @@ public class GTDListener implements MessageListener {
 		if (user == null) {
 			auditor.audit("login", "login incorrecto");
 			msgToSend.put("user", "null");
-			System.out.println("NULO NULO NULO");
 		} else {
 			msgToSend.put("user", user);
 			System.out.println("USER->>" + user.toString());
