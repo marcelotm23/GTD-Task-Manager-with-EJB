@@ -16,7 +16,6 @@ import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.MessageProducer;
 import javax.jms.Session;
-import javax.jms.TemporaryQueue;
 import javax.xml.bind.DatatypeConverter;
 
 import alb.util.date.DateUtil;
@@ -77,10 +76,10 @@ public class GTDListener implements MessageListener {
 			con = factory.createConnection("sdi", "password");
 			Session session = con
 					.createSession(false, Session.AUTO_ACKNOWLEDGE);
-			MessageProducer sender = session.createProducer(msg.getJMSReplyTo());
+			MessageProducer sender = session.createProducer(null);
 			MapMessage msgToSend = createJmsMapMessage(msgMap, session);
 			
-			sender.send(msgToSend);
+			sender.send(msg.getJMSReplyTo(), msgToSend);
 		} catch (JMSException jex) {
 			jex.printStackTrace();
 		} finally {

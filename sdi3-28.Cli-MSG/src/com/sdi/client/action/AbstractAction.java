@@ -5,13 +5,11 @@ import javax.jms.ConnectionFactory;
 import javax.jms.Destination;
 import javax.jms.JMSException;
 import javax.jms.MapMessage;
-import javax.jms.Message;
 import javax.jms.MessageConsumer;
 import javax.jms.MessageListener;
 import javax.jms.MessageProducer;
 import javax.jms.Session;
 
-import com.sdi.client.ui.OptionsMenu;
 import com.sdi.util.Jndi;
 
 import alb.util.menu.Action;
@@ -33,7 +31,6 @@ public abstract class AbstractAction implements Action, MessageListener {
 	public void execute() throws Exception {
 		initialize();
 		MapMessage msg = createMessage();
-		//msg.setJMSDestination(tempQueue);
 		msg.setJMSReplyTo(tempQueue);
 		sender.send(msg);
 		con.close();
