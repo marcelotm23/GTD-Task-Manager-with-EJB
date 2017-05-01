@@ -13,7 +13,7 @@ import com.sdi.rest.exception.ServerException;
 public class ServiceRestImpl implements ServiceRest{
 
 	private TaskService taskService = Factories.services.getTaskService();
-	//TODO No lanzar Bussiness
+	
 
 	@Override
 	public void saveTask(Task task) throws ServerException {

@@ -13,7 +13,7 @@ public class RegistrarTareaAction extends AbstractAction{
 		
 		String title=Console.readString("Título");
 		String comments=Console.readString("Comentarios");
-		String planned=Console.readString("Fecha planeada");
+		String planned=Console.readString("Fecha planeada(dd/MM/AAAA)");
 		
 		msg.setString("command", "saveTask");
 		msg.setLong("idUser", idUser);
@@ -26,7 +26,6 @@ public class RegistrarTareaAction extends AbstractAction{
 
 	@Override
 	public void onMessage(MapMessage msg) {
-		System.out.println("GTD CLiente MSG: Msg recibido");
 		try {
 			String resultado = msg.getString("resultado");
 			

@@ -10,7 +10,7 @@ public class FinalizarTareaAction extends AbstractAction{
 	@Override
 	protected MapMessage createMessage() throws JMSException {
 		MapMessage msg = session.createMapMessage();
-		Long idTask=Console.readLong();
+		Long idTask=Console.readLong("Id de la tarea");
 		
 		msg.setString("command", "finishTask"); 
 		msg.setLong("idTask", idTask);
@@ -20,9 +20,15 @@ public class FinalizarTareaAction extends AbstractAction{
 	}
 
 	@Override
-	public void onMessage(MapMessage arg0) {
-		// TODO Auto-generated method stub
-		
+	public void onMessage(MapMessage msg) {
+		try {
+			String resultado = msg.getString("resultado");
+			
+			Console.println(resultado);
+			
+		} catch (JMSException e) {
+			e.printStackTrace();
+		}	
 	}
 
 }

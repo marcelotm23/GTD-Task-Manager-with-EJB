@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.EJB;
+import javax.ejb.EJBTransactionRolledbackException;
 import javax.ejb.MessageDriven;
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
@@ -85,22 +86,18 @@ public class GTDListener implements MessageListener {
 				msgToSend = createJmsMapMessageLogin(msgMap, session);
 			}else if(cmd.equals("findTasksTodayAndDelayed")){
 				msgToSend = createJmsMapMessageFindTasks(msgMap, session);
-			}else if(cmd.equals("saveTask")){
-				msgToSend = createJmsMapMessageSaveTask(msgMap, session);
+			}else if(cmd.equals("saveTask") || cmd.equals("finishTask")){
+				msgToSend = createJmsMapMessageSaveOrFinishTask(msgMap, session);
 			}
 			sender.send(msg.getJMSReplyTo(), msgToSend);
 		} catch (JMSException jex) {
 			jex.printStackTrace();
 		} finally {
-			try {
-				con.close();
-			} catch (JMSException e) {
-				e.printStackTrace();
-			}
+			close(con);
 		}
 	}
 
-	private MapMessage createJmsMapMessageSaveTask(Map<String, Object> msgMap,
+	private MapMessage createJmsMapMessageSaveOrFinishTask(Map<String, Object> msgMap,
 			Session session) throws JMSException {
 		MapMessage msg = session.createMapMessage();
 		msg.setString("resultado", (String) msgMap.get("resultado"));
@@ -165,18 +162,30 @@ public class GTDListener implements MessageListener {
 		Map<String, Object> msgToSend = new HashMap<String, Object>();
 		try {
 			taskService.createTask(task);
-			resultado="Se añadido la tarea con éxito";
+			resultado="Se ha añadido la tarea con éxito";
 		} catch (BusinessException e) {
-			auditor.audit("saveTask", "login incorrecto");
-			resultado="Se añadido la tarea con éxito";
+			auditor.audit("saveTask", "Error:"+e.getMessage());
+			resultado="No se ha podido añadir la tarea con éxito, "
+					+ "debido a: "+e.getMessage();
 		}
 		msgToSend.put("resultado", resultado);
 		sendMessage(msg, msgToSend);
 	}
 
 	private void doFinishTask(MapMessage msg) throws NumberFormatException,
-			BusinessException, JMSException {
-		taskService.markTaskAsFinished(Long.parseLong(msg.getString("idTask")));
+			 JMSException {
+		String resultado="";
+		Map<String, Object> msgToSend = new HashMap<String, Object>();
+		try {
+			taskService.markTaskAsFinished(Long.parseLong(msg.getString("idTask")));
+			resultado="Se ha finalizado la tarea con éxito";
+		} catch (BusinessException | EJBTransactionRolledbackException e) {
+			auditor.audit("finishTask", "Ha ocurrido un error:"+e.getMessage());
+			resultado="No se ha podido finalizar la tarea con éxito, debido a:"
+					+ e.getMessage();
+		}
+		msgToSend.put("resultado", resultado);
+		sendMessage(msg, msgToSend);
 	}
 
 	private void doFindTasksTodayAndDelayed(MapMessage msg)
@@ -196,6 +205,14 @@ public class GTDListener implements MessageListener {
 
 	private boolean messageOfExpectedType(Message msg) {
 		return msg instanceof MapMessage;
+	}
+	
+	private void close(Connection con) {
+		try {
+			con.close();
+		} catch (JMSException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

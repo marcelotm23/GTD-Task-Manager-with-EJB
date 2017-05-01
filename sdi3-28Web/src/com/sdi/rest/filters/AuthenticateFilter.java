@@ -17,7 +17,6 @@ import com.sdi.business.UserService;
 import com.sdi.infrastructure.Factories;
 import com.sdi.model.User;
 import com.sdi.model.types.UserStatus;
-import com.sdi.rest.exception.ServerException;
 
 /**
  * Servlet Filter implementation class AuthenticateFilter
@@ -32,14 +31,14 @@ public class AuthenticateFilter implements Filter {
 	 * Default constructor.
 	 */
 	public AuthenticateFilter() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	/**
 	 * @see Filter#destroy()
 	 */
 	public void destroy() {
-		// TODO Auto-generated method stub
+		
 	}
 
 	/**
@@ -85,7 +84,7 @@ public class AuthenticateFilter implements Filter {
 	 * @see Filter#init(FilterConfig)
 	 */
 	public void init(FilterConfig fConfig) throws ServletException {
-		// TODO Auto-generated method stub
+		
 	}
 
 }
