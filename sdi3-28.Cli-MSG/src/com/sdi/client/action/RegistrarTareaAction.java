@@ -11,9 +11,9 @@ public class RegistrarTareaAction extends AbstractAction{
 	protected MapMessage createMessage() throws JMSException {
 		MapMessage msg = session.createMapMessage(); 
 		
-		String title=Console.readString();
-		String comments=Console.readString();
-		String planned=Console.readString();
+		String title=Console.readString("Título");
+		String comments=Console.readString("Comentarios");
+		String planned=Console.readString("Fecha planeada");
 		
 		msg.setString("command", "saveTask");
 		msg.setLong("idUser", idUser);
