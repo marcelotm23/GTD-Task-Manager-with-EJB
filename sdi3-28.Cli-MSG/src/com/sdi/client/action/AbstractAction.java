@@ -5,6 +5,7 @@ import javax.jms.ConnectionFactory;
 import javax.jms.Destination;
 import javax.jms.JMSException;
 import javax.jms.MapMessage;
+import javax.jms.Message;
 import javax.jms.MessageConsumer;
 import javax.jms.MessageProducer;
 import javax.jms.Session;
@@ -22,8 +23,8 @@ public abstract class AbstractAction implements Action {
 	protected Session session;
 	private MessageProducer sender;
 	
-	private MessageConsumer consumer;
-	private Destination tempQueue;
+	protected MessageConsumer consumer;
+	protected Destination tempQueue;
 	protected static Long idUser;
 
 	
@@ -37,7 +38,7 @@ public abstract class AbstractAction implements Action {
 		con.close();
 	}
 
-	private void recibirMensaje() throws JMSException {
+	protected void recibirMensaje() throws JMSException {
 		consumer = session.createConsumer(tempQueue);
 		
 		MapMessage msg = (MapMessage) consumer.receive(10000);
@@ -45,7 +46,7 @@ public abstract class AbstractAction implements Action {
 	}
 
 	protected abstract MapMessage createMessage() throws JMSException;
-	protected abstract void onMessage(MapMessage msg);
+	protected abstract void onMessage(Message msg);
 
 	private void initialize() throws JMSException {
 

@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 
 import javax.jms.JMSException;
 import javax.jms.MapMessage;
+import javax.jms.Message;
 import javax.xml.bind.DatatypeConverter;
 
 import alb.util.console.Console;
@@ -31,12 +32,12 @@ public class AuthenticateAction extends AbstractAction{
 	}
 	
 	@Override
-	public void onMessage(MapMessage msg) {
+	public void onMessage(Message msg) {
 		System.out.println("GTD CLiente MSG: Msg recibido");
-		
+		MapMessage m=(MapMessage)msg;
 		try {
-			idUser = msg.getLong("idUser");
-			if (idUser != null) {
+			idUser = m.getLong("idUser");
+			if (idUser != -1L) {
 				new OptionsMenu().execute();
 			}else{
 				Console.println("Usuario o password incorrectos");

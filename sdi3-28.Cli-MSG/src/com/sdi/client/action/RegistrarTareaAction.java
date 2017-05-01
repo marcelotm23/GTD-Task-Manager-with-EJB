@@ -2,6 +2,7 @@ package com.sdi.client.action;
 
 import javax.jms.JMSException;
 import javax.jms.MapMessage;
+import javax.jms.Message;
 
 import alb.util.console.Console;
 
@@ -25,9 +26,10 @@ public class RegistrarTareaAction extends AbstractAction{
 	}
 
 	@Override
-	public void onMessage(MapMessage msg) {
+	public void onMessage(Message msg) {
+		MapMessage m=(MapMessage) msg;
 		try {
-			String resultado = msg.getString("resultado");
+			String resultado = m.getString("resultado");
 			
 			Console.println(resultado);
 			

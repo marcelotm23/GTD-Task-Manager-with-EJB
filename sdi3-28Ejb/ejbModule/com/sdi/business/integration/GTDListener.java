@@ -18,6 +18,7 @@ import javax.jms.MapMessage;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.MessageProducer;
+import javax.jms.ObjectMessage;
 import javax.jms.Session;
 import javax.xml.bind.DatatypeConverter;
 
@@ -80,7 +81,7 @@ public class GTDListener implements MessageListener {
 			Session session = con
 					.createSession(false, Session.AUTO_ACKNOWLEDGE);
 			MessageProducer sender = session.createProducer(null);
-			MapMessage msgToSend = null;
+			Message msgToSend = null;
 			String cmd=msg.getString("command");
 			if(cmd.equals("login")){
 				msgToSend = createJmsMapMessageLogin(msgMap, session);
@@ -111,20 +112,21 @@ public class GTDListener implements MessageListener {
 			User user = (User) msgMap.get("user");
 			msg.setLong("idUser", user.getId());
 		}else{
-			msg.setObject("idUser", null);
+			msg.setLong("idUser", -1L);
 		}
 		return msg;
 	}
-	private MapMessage createJmsMapMessageFindTasks(Map<String, Object> msgMap,
+	@SuppressWarnings("unchecked")
+	private ObjectMessage createJmsMapMessageFindTasks(Map<String, Object> msgMap,
 			Session session) throws JMSException {
-		MapMessage msg = session.createMapMessage();
+		ObjectMessage msg = session.createObjectMessage();
 		List<Task> tasks=
 				(List<Task>) msgMap.get("tasksTodayAndDelayed");
-		List<String> tasksSend= new ArrayList<String>();
+		List<String> tasksStr= new ArrayList<String>();
 		for(Task task:tasks){
-			tasksSend.add(task.toString());
+			tasksStr.add(task.toString());
 		}
-		msg.setObject("tasksTodayAndDelayed", (Serializable)tasks);
+		msg.setObject((Serializable)tasksStr);
 		
 		return msg;
 	}

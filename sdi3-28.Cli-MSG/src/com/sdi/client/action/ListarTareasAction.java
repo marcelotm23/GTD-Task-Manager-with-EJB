@@ -4,10 +4,10 @@ import java.util.List;
 
 import javax.jms.JMSException;
 import javax.jms.MapMessage;
+import javax.jms.Message;
+import javax.jms.ObjectMessage;
 
 import alb.util.console.Console;
-
-import com.sdi.client.model.Task;
 
 public class ListarTareasAction extends AbstractAction{
 
@@ -24,12 +24,12 @@ public class ListarTareasAction extends AbstractAction{
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public void onMessage(MapMessage msg) {
-		System.out.println("GTD CLiente MSG: Msg recibido");
+	public void onMessage(Message msg) {
 		
+		ObjectMessage m=(ObjectMessage) msg;
 		try {
-			List<Task> tasks = 
-					(List<Task>) msg.getObject("tasksTodayAndDelayed");
+			List<String> tasks = 
+					 (List<String>) m.getObject();
 			if (tasks != null) {
 				printTasks(tasks);
 			}
@@ -37,15 +37,21 @@ public class ListarTareasAction extends AbstractAction{
 			e.printStackTrace();
 		}	
 	}
+	@Override
+	protected void recibirMensaje() throws JMSException {
+		consumer = session.createConsumer(tempQueue);
+		
+		ObjectMessage msg = (ObjectMessage) consumer.receive(10000);
+		onMessage(msg);
+	}
 	
-	public static void printTasks(List<Task> tasks) {
+	public static void printTasks(List<String> tasks) {
 		if (tasks.size() == 0) {
 			Console.println("Ninguna tarea asociada a dicha categoría");
 		} else {
-			Console.println("Nombre\tComentarios\tFecha planificada");
-			for (Task t : tasks) {
-				Console.println(t.getTitle() + "\t" + t.getComments() + "\t"
-						+ t.getPlanned() + "\t");
+			Console.println("Listado de tareas:");
+			for (String t : tasks) {
+				Console.println(t);
 			}
 		}
 	}
