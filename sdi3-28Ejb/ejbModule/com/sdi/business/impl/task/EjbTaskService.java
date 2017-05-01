@@ -76,6 +76,12 @@ public class EjbTaskService implements RemoteTaskService, LocalTaskService {
 	public void markTaskAsFinished(Long id) throws BusinessException {
 		new TaskServiceImpl().markTaskAsFinished(id);
 	}
+	
+	@Override
+	public void markTaskAsFinished(Long idTarea, Long idUser)
+			throws BusinessException {
+		new TaskServiceImpl().markTaskAsFinished(idTarea, idUser);
+	}
 
 	@Override
 	public void updateTask(Task task) throws BusinessException {

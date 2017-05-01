@@ -177,7 +177,6 @@ public class GTDListener implements MessageListener {
 	private void doFinishTask(MapMessage msg) throws NumberFormatException,
 			BusinessException, JMSException {
 		taskService.markTaskAsFinished(Long.parseLong(msg.getString("idTask")));
-
 	}
 
 	private void doFindTasksTodayAndDelayed(MapMessage msg)

@@ -93,6 +93,12 @@ public class TaskServiceImpl implements TaskService {
 	public void markTaskAsFinished(Long id) throws BusinessException {
 		new MarkTaskAsFinishedCommand(id).execute();
 	}
+	
+	@Override
+	public void markTaskAsFinished(Long idTarea, Long idUser)
+			throws BusinessException {
+		new MarkTaskAsFinishedCommand(idTarea, idUser).execute();
+	}
 
 	@Override
 	public void updateTask(Task task) throws BusinessException {

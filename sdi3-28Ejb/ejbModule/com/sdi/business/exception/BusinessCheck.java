@@ -1,5 +1,7 @@
 package com.sdi.business.exception;
 
+import com.sdi.model.Task;
+
 public class BusinessCheck {
 
 	public static void isNull(Object o, String errorMsg)
@@ -38,6 +40,10 @@ public class BusinessCheck {
 		if (condition == true)
 			return;
 		throw new BusinessException(errorMsg);
+	}
+
+	public static void isOwn(Task t, Long idUser, String errorMsg) {
+		isTrue(t.getUserId().equals(idUser), errorMsg);
 	}
 
 }
