@@ -2,6 +2,7 @@ package com.sdi.client.action;
 
 import java.io.UnsupportedEncodingException;
 
+import javax.jms.Destination;
 import javax.jms.JMSException;
 import javax.jms.MapMessage;
 import javax.jms.Message;

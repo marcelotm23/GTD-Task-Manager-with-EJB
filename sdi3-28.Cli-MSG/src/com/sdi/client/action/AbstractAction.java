@@ -6,6 +6,7 @@ import javax.jms.Destination;
 import javax.jms.JMSException;
 import javax.jms.MapMessage;
 import javax.jms.Message;
+import javax.jms.MessageConsumer;
 import javax.jms.MessageListener;
 import javax.jms.MessageProducer;
 import javax.jms.Session;
@@ -23,17 +24,20 @@ public abstract class AbstractAction implements Action, MessageListener {
 	private Connection con;
 	protected Session session;
 	private MessageProducer sender;
+	
+	private MessageConsumer consumer;
+	private Destination tempQueue;
 
 	
 	@Override
 	public void execute() throws Exception {
 		initialize();
 		MapMessage msg = createMessage();
+		//msg.setJMSDestination(tempQueue);
+		msg.setJMSReplyTo(tempQueue);
 		sender.send(msg);
 		con.close();
 	}
-
-	
 
 	protected abstract MapMessage createMessage() throws JMSException;
 
@@ -47,6 +51,9 @@ public abstract class AbstractAction implements Action, MessageListener {
 		con = factory.createConnection("sdi", "password");
 		session = con.createSession(false, Session.AUTO_ACKNOWLEDGE);
 		sender = session.createProducer(queue);
+		tempQueue = session.createTemporaryQueue();
+		consumer = session.createConsumer(tempQueue);
+		consumer.setMessageListener(this);
 		con.start();
 	}
 }

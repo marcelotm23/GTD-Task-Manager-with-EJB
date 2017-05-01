@@ -28,21 +28,17 @@ import com.sdi.infrastructure.Factories;
 import com.sdi.model.Task;
 import com.sdi.model.User;
 
-@MessageDriven(activationConfig = { 
-		@ActivationConfigProperty(
-				propertyName = "destination", 
-				propertyValue = "queue/GTDQueue") 
-		})
+@MessageDriven(activationConfig = { @ActivationConfigProperty(propertyName = "destination", propertyValue = "queue/GTDQueue") })
 public class GTDListener implements MessageListener {
 
 	private UserService userService = Factories.services.getUserService();
 	private TaskService taskService = Factories.services.getTaskService();
-	
-	@EJB private Auditor auditor;
-	
+
+	@EJB
+	private Auditor auditor;
+
 	@Resource(mappedName = "java:/ConnectionFactory")
 	private ConnectionFactory factory;
-
 
 	@Override
 	public void onMessage(Message msg) {
@@ -68,42 +64,43 @@ public class GTDListener implements MessageListener {
 			doFinishTask(msg);
 		} else if ("saveTask".equals(cmd)) {
 			doSaveTask(msg);
-		}else if("login".equals(cmd)){
+		} else if ("login".equals(cmd)) {
 			doLogin(msg);
-		}else{
+		} else {
 			auditor.audit(cmd, "operacion desconocida");
 		}
 	}
-	private void sendMessage(Map<String, Object> msgMap){
-		Connection con = null; 
-		try { 
-		con = factory.createConnection("sdi", "password"); 
-		Session session = con.createSession(false,  
-							Session.AUTO_ACKNOWLEDGE); 
-		TemporaryQueue queue = session.createTemporaryQueue();
-		MessageProducer sender = session.createProducer(queue);
-		MapMessage msg = createJmsMapMessage(msgMap, session); 
-		sender.send( msg ); 
-		} catch (JMSException jex) { 
-			jex.printStackTrace(); 
-		} 
-		finally {  
+
+	private void sendMessage(MapMessage msg, Map<String, Object> msgMap) {
+		Connection con = null;
+		try {
+			con = factory.createConnection("sdi", "password");
+			Session session = con
+					.createSession(false, Session.AUTO_ACKNOWLEDGE);
+			MessageProducer sender = session.createProducer(msg.getJMSReplyTo());
+			MapMessage msgToSend = createJmsMapMessage(msgMap, session);
+			
+			sender.send(msgToSend);
+		} catch (JMSException jex) {
+			jex.printStackTrace();
+		} finally {
 			try {
 				con.close();
 			} catch (JMSException e) {
 				e.printStackTrace();
-			} 
-		} 
+			}
+		}
 	}
+
 	private MapMessage createJmsMapMessage(Map<String, Object> msgMap,
 			Session session) throws JMSException {
 		MapMessage msg = session.createMapMessage();
-		for(String key:msgMap.keySet()){
+		for (String key : msgMap.keySet()) {
 			msg.setObject(key, msg.getObject(key));
 		}
 		return msg;
 	}
-	
+
 	private void doLogin(MapMessage msg) throws JMSException {
 		String datos64 = msg.getString("datos64");
 		String decodicado = new String(
@@ -118,22 +115,23 @@ public class GTDListener implements MessageListener {
 			auditor.audit("login", "login incorrecto");
 			msgToSend.put("user", "null");
 			System.out.println("NULO NULO NULO");
-		}else{
+		} else {
 			msgToSend.put("user", user);
 			System.out.println("USER->>" + user.toString());
 		}
-		sendMessage(msgToSend);
+		sendMessage(msg, msgToSend);
 
 	}
 
-	private void doSaveTask(MapMessage msg) throws NumberFormatException, JMSException {
-		Task task=new Task();
+	private void doSaveTask(MapMessage msg) throws NumberFormatException,
+			JMSException {
+		Task task = new Task();
 		task.setUserId(Long.parseLong(msg.getString("idUser")));
 		task.setTitle(msg.getString("title"));
 		task.setComments(msg.getString("comments"));
 		task.setCreated(DateUtil.today());
 		task.setPlanned(DateUtil.fromString(msg.getString("planned")));
-		
+
 		taskService.createTask(task);
 	}
 
@@ -145,14 +143,14 @@ public class GTDListener implements MessageListener {
 
 	private void doFindTasksTodayAndDelayed(MapMessage msg)
 			throws NumberFormatException, BusinessException, JMSException {
-		List<Task> tasks = taskService.findTodayTasksByUserId(Long.parseLong(msg
-				.getString("idUser")));
-		Map<String, List<Task>> msgToSend = new HashMap<String, List<Task>>(); 
-		if(tasks!=null){
-			msgToSend.put("tasksTodayAndDelayed", tasks );
-		}else{
-			auditor.audit("findTasksTodayAndDelayed","tareas para hoy y "
-					+ "retrasadas no encontradas"); 
+		List<Task> tasks = taskService.findTodayTasksByUserId(Long
+				.parseLong(msg.getString("idUser")));
+		Map<String, List<Task>> msgToSend = new HashMap<String, List<Task>>();
+		if (tasks != null) {
+			msgToSend.put("tasksTodayAndDelayed", tasks);
+		} else {
+			auditor.audit("findTasksTodayAndDelayed", "tareas para hoy y "
+					+ "retrasadas no encontradas");
 		}
 	}
 
