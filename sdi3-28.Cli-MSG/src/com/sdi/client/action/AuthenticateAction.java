@@ -4,13 +4,11 @@ import java.io.UnsupportedEncodingException;
 
 import javax.jms.JMSException;
 import javax.jms.MapMessage;
-import javax.jms.Message;
 import javax.xml.bind.DatatypeConverter;
 
-import com.sdi.client.model.User;
-import com.sdi.client.ui.OptionsMenu;
-
 import alb.util.console.Console;
+
+import com.sdi.client.ui.OptionsMenu;
 
 public class AuthenticateAction extends AbstractAction{
 
@@ -35,7 +33,7 @@ public class AuthenticateAction extends AbstractAction{
 	@Override
 	public void onMessage(MapMessage msg) {
 		System.out.println("GTD CLiente MSG: Msg recibido");
-		Long idUser;
+		
 		try {
 			idUser = msg.getLong("idUser");
 			if (idUser != null) {
@@ -44,7 +42,6 @@ public class AuthenticateAction extends AbstractAction{
 				Console.println("Usuario o password incorrectos");
 			}
 		} catch (JMSException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}	
 	}

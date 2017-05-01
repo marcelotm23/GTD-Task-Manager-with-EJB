@@ -2,7 +2,6 @@ package com.sdi.client.action;
 
 import javax.jms.JMSException;
 import javax.jms.MapMessage;
-import javax.jms.Message;
 
 import alb.util.console.Console;
 
@@ -16,8 +15,8 @@ public class RegistrarTareaAction extends AbstractAction{
 		String comments=Console.readString();
 		String planned=Console.readString();
 		
-		msg.setString("command", "finishTask");
-//		TODO msg.setLong("idUser", user.getId());
+		msg.setString("command", "saveTask");
+		msg.setLong("idUser", idUser);
 		msg.setString("title", title);
 		msg.setString("comments", comments);
 		msg.setString("planned", planned);
@@ -26,9 +25,16 @@ public class RegistrarTareaAction extends AbstractAction{
 	}
 
 	@Override
-	public void onMessage(MapMessage arg0) {
-		// TODO Auto-generated method stub
-		
+	public void onMessage(MapMessage msg) {
+		System.out.println("GTD CLiente MSG: Msg recibido");
+		try {
+			String resultado = msg.getString("resultado");
+			
+			Console.println(resultado);
+			
+		} catch (JMSException e) {
+			e.printStackTrace();
+		}	
 	}
 
 }

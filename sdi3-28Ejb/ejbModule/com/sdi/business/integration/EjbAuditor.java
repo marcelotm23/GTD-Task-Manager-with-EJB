@@ -79,7 +79,7 @@ public class EjbAuditor implements Auditor {
 		MapMessage msg = session.createMapMessage();
 
 		for(String key:msgMap.keySet()){
-			msg.setString(key, msg.getString(key));
+			msg.setString(key, msgMap.get(key));
 		}
 		return msg;
 	}

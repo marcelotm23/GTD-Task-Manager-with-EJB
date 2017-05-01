@@ -2,7 +2,6 @@ package com.sdi.client.action;
 
 import javax.jms.JMSException;
 import javax.jms.MapMessage;
-import javax.jms.Message;
 
 import alb.util.console.Console;
 
@@ -15,6 +14,7 @@ public class FinalizarTareaAction extends AbstractAction{
 		
 		msg.setString("command", "finishTask"); 
 		msg.setLong("idTask", idTask);
+		msg.setLong("idUser", idUser);
 		
 		return msg; 
 	}

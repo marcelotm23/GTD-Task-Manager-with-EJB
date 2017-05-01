@@ -1,5 +1,7 @@
 package com.sdi.business.integration;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -77,8 +79,15 @@ public class GTDListener implements MessageListener {
 			Session session = con
 					.createSession(false, Session.AUTO_ACKNOWLEDGE);
 			MessageProducer sender = session.createProducer(null);
-			MapMessage msgToSend = createJmsMapMessage(msgMap, session);
-			
+			MapMessage msgToSend = null;
+			String cmd=msg.getString("command");
+			if(cmd.equals("login")){
+				msgToSend = createJmsMapMessageLogin(msgMap, session);
+			}else if(cmd.equals("findTasksTodayAndDelayed")){
+				msgToSend = createJmsMapMessageFindTasks(msgMap, session);
+			}else if(cmd.equals("saveTask")){
+				msgToSend = createJmsMapMessageSaveTask(msgMap, session);
+			}
 			sender.send(msg.getJMSReplyTo(), msgToSend);
 		} catch (JMSException jex) {
 			jex.printStackTrace();
@@ -91,13 +100,35 @@ public class GTDListener implements MessageListener {
 		}
 	}
 
-	private MapMessage createJmsMapMessage(Map<String, Object> msgMap,
+	private MapMessage createJmsMapMessageSaveTask(Map<String, Object> msgMap,
 			Session session) throws JMSException {
 		MapMessage msg = session.createMapMessage();
-		for (String key : msgMap.keySet()) {
-			User user = (User) msgMap.get(key);
+		msg.setString("resultado", (String) msgMap.get("resultado"));
+		return msg;
+	}
+
+	private MapMessage createJmsMapMessageLogin(Map<String, Object> msgMap,
+			Session session) throws JMSException {
+		MapMessage msg = session.createMapMessage();
+		if(msgMap.get("user")!=null){	
+			User user = (User) msgMap.get("user");
 			msg.setLong("idUser", user.getId());
+		}else{
+			msg.setObject("idUser", null);
 		}
+		return msg;
+	}
+	private MapMessage createJmsMapMessageFindTasks(Map<String, Object> msgMap,
+			Session session) throws JMSException {
+		MapMessage msg = session.createMapMessage();
+		List<Task> tasks=
+				(List<Task>) msgMap.get("tasksTodayAndDelayed");
+		List<String> tasksSend= new ArrayList<String>();
+		for(Task task:tasks){
+			tasksSend.add(task.toString());
+		}
+		msg.setObject("tasksTodayAndDelayed", (Serializable)tasks);
+		
 		return msg;
 	}
 
@@ -113,7 +144,7 @@ public class GTDListener implements MessageListener {
 		Map<String, Object> msgToSend = new HashMap<String, Object>();
 		if (user == null) {
 			auditor.audit("login", "login incorrecto");
-			msgToSend.put("user", "null");
+			msgToSend.put("user", null);
 		} else {
 			msgToSend.put("user", user);
 			System.out.println("USER->>" + user.toString());
@@ -130,8 +161,17 @@ public class GTDListener implements MessageListener {
 		task.setComments(msg.getString("comments"));
 		task.setCreated(DateUtil.today());
 		task.setPlanned(DateUtil.fromString(msg.getString("planned")));
-
-		taskService.createTask(task);
+		String resultado="";
+		Map<String, Object> msgToSend = new HashMap<String, Object>();
+		try {
+			taskService.createTask(task);
+			resultado="Se añadido la tarea con éxito";
+		} catch (BusinessException e) {
+			auditor.audit("saveTask", "login incorrecto");
+			resultado="Se añadido la tarea con éxito";
+		}
+		msgToSend.put("resultado", resultado);
+		sendMessage(msg, msgToSend);
 	}
 
 	private void doFinishTask(MapMessage msg) throws NumberFormatException,
@@ -144,13 +184,15 @@ public class GTDListener implements MessageListener {
 			throws NumberFormatException, BusinessException, JMSException {
 		List<Task> tasks = taskService.findTodayTasksByUserId(Long
 				.parseLong(msg.getString("idUser")));
-		Map<String, List<Task>> msgToSend = new HashMap<String, List<Task>>();
+		Map<String, Object> msgToSend = new HashMap<String, Object>();
 		if (tasks != null) {
 			msgToSend.put("tasksTodayAndDelayed", tasks);
 		} else {
 			auditor.audit("findTasksTodayAndDelayed", "tareas para hoy y "
 					+ "retrasadas no encontradas");
+			msgToSend.put("tasksTodayAndDelayed", null);
 		}
+		sendMessage(msg, msgToSend);
 	}
 
 	private boolean messageOfExpectedType(Message msg) {
