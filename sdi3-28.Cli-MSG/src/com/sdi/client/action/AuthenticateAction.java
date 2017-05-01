@@ -33,7 +33,6 @@ public class AuthenticateAction extends AbstractAction{
 	
 	@Override
 	public void onMessage(Message msg) {
-		System.out.println("GTD CLiente MSG: Msg recibido");
 		MapMessage m=(MapMessage)msg;
 		try {
 			idUser = m.getLong("idUser");

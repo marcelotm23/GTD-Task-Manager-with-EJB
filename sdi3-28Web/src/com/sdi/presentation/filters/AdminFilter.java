@@ -22,7 +22,10 @@ import com.sdi.model.User;
  */
 @WebFilter(dispatcherTypes = { DispatcherType.REQUEST }, 
 urlPatterns = { "/privateAdmin/*" },
-initParams = { @WebInitParam(name = "LoginParam", value = "/privateUser/listadoTareas.xhtml") })
+initParams = { 
+		@WebInitParam(
+		name = "LoginParam", 
+		value = "/privateUser/listadoTareas.xhtml") })
 public class AdminFilter implements Filter {
 
 	// Necesitamos acceder a los par�metros de inicializaci�n en

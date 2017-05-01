@@ -14,7 +14,7 @@ import com.sdi.util.Authenticator;
 public class FinalizarTareaAction implements Action {
 
 	private static final String REST_SERVICE_URL = 
-			"http://localhost:8280/sdi3-28.Web/rest/ServiceRs/markTaskAsFinished";
+		"http://localhost:8280/sdi3-28.Web/rest/ServiceRs/markTaskAsFinished";
 
 	@Override
 	public void execute(User user) throws Exception {
@@ -29,6 +29,7 @@ public class FinalizarTareaAction implements Action {
 									.getPassword())).target(REST_SERVICE_URL)
 					.request()
 					.post(Entity.entity(id, MediaType.APPLICATION_XML));
+			Console.print("La tarea ha sido finalizada con éxito");
 		} catch (ProcessingException pe) {
 			Console.println("Ha ocurrido un error procesando la petición."
 					+ "Asegúrse que los datos proporcionados son correctos.");

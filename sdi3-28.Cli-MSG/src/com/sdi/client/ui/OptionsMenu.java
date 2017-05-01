@@ -11,7 +11,8 @@ public class OptionsMenu extends BaseMenu{
 	public OptionsMenu() {
 		menuOptions = new Object[][] { 
 			{ "Opciones", null},
-			{ "Ver las tareas de la pseudolista Hoy y atrasadas", ListarTareasAction.class },
+			{ "Ver las tareas de la pseudolista Hoy y atrasadas", 
+				ListarTareasAction.class },
 			{ "Finalizar una tarea", FinalizarTareaAction.class },
 			{ "Añadir una tarea", RegistrarTareaAction.class },
 		};

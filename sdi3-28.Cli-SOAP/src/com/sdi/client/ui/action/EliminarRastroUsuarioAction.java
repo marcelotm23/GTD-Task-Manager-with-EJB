@@ -17,9 +17,8 @@ public class EliminarRastroUsuarioAction implements Action{
 		try{
 			adminService.deepDeleteUser(id);
 		} catch (Exception e) {
-			Console.println("ERROR:" + e.getMessage());
+			Console.println("ERROR:" + e.getCause().getMessage());
 		}
-		
 		
 		Console.println("Usuario eliminado");
 	}

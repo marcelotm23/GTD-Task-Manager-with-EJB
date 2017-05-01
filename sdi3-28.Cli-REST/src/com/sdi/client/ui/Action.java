@@ -3,8 +3,6 @@ package com.sdi.client.ui;
 import com.sdi.client.model.User;
 
 
-
-
 /**
  * Representa cada acción invocada por el usuario. 
  * 

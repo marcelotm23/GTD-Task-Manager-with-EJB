@@ -11,9 +11,6 @@ import alb.util.date.DateUtil;
 @XmlRootElement(name = "task")
 public class Task implements Serializable {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
@@ -108,7 +105,8 @@ public class Task implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((categoryId == null) ? 0 : categoryId.hashCode());
+		result = prime * result + 
+				((categoryId == null) ? 0 : categoryId.hashCode());
 		result = prime * result + ((comments == null) ? 0 : comments.hashCode());
 		result = prime * result + ((created == null) ? 0 : created.hashCode());
 		result = prime * result + ((finished == null) ? 0 : finished.hashCode());

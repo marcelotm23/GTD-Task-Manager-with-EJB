@@ -90,8 +90,8 @@ public class BeanSettings implements Serializable {
 	  if (usuario == null) { 
 	    System.out.println("BeanSettings - No existia");
 	    usuario = new BeanUsuario();
-	    FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(
-	"alumno", usuario);
+	    FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
+	    	.put("alumno", usuario);
 	  } 
 	}
 	//Es sólo a modo de traza.

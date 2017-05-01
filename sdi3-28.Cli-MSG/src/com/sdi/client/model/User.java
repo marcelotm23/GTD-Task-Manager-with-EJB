@@ -7,17 +7,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import com.sdi.client.model.types.UserStatus;
 
-/**
- * An implementation of the DTO pattern
- * 
- * @author alb
- */
 @XmlRootElement(name = "user")
 public class User implements Serializable {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	private Long id;

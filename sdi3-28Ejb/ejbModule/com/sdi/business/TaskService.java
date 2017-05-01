@@ -30,7 +30,8 @@ public interface TaskService {
 
 	public void markTaskAsFinished(Long id) throws BusinessException;
 	
-	public void markTaskAsFinished(Long idTarea, Long idUser) throws BusinessException;
+	public void markTaskAsFinished(Long idTarea, Long idUser) 
+			throws BusinessException;
 
 	public void updateTask(Task task) throws BusinessException;
 

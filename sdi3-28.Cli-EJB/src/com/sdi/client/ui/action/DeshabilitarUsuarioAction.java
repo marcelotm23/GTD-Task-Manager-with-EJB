@@ -1,5 +1,6 @@
 package com.sdi.client.ui.action;
 
+import javax.ejb.EJBException;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 
@@ -24,12 +25,9 @@ public class DeshabilitarUsuarioAction implements Action {
 		try {
 			adminService.disableUser(id);
 			Console.println("Usuario deshabilitado");
-		} catch (BusinessException e) {
-			Console.println("ERROR:" + e.getMessage());
+		} catch (BusinessException | EJBException e) {
+			Console.println("ERROR:" + e.getCause().getMessage());
 		}
-
-		
-
 	}
 
 }

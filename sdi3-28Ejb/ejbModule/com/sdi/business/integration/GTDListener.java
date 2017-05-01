@@ -31,7 +31,10 @@ import com.sdi.infrastructure.Factories;
 import com.sdi.model.Task;
 import com.sdi.model.User;
 
-@MessageDriven(activationConfig = { @ActivationConfigProperty(propertyName = "destination", propertyValue = "queue/GTDQueue") })
+@MessageDriven(activationConfig = { 
+		@ActivationConfigProperty(
+				propertyName = "destination", 
+				propertyValue = "queue/GTDQueue") })
 public class GTDListener implements MessageListener {
 
 	private UserService userService = Factories.services.getUserService();
@@ -179,7 +182,9 @@ public class GTDListener implements MessageListener {
 		String resultado="";
 		Map<String, Object> msgToSend = new HashMap<String, Object>();
 		try {
-			taskService.markTaskAsFinished(Long.parseLong(msg.getString("idTask")));
+			Long idTask=Long.parseLong(msg.getString("idTask"));
+			Long idUser=Long.parseLong(msg.getString("idUser"));
+			taskService.markTaskAsFinished(idTask, idUser);
 			resultado="Se ha finalizado la tarea con éxito";
 		} catch (BusinessException | EJBTransactionRolledbackException e) {
 			auditor.audit("finishTask", "Ha ocurrido un error:"+e.getMessage());

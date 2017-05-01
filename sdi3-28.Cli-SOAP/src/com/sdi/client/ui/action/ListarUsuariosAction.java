@@ -26,7 +26,7 @@ public class ListarUsuariosAction implements Action {
 				printUsersList(users);
 			}
 		} catch (Exception e) {
-			Console.println("ERROR:" + e.getMessage());
+			Console.println("ERROR:" + e.getCause().getMessage());
 		}
 	}
 	

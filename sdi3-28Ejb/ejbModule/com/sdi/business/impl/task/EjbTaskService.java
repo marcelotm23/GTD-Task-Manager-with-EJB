@@ -2,7 +2,6 @@ package com.sdi.business.impl.task;
 
 import java.util.List;
 
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 import com.sdi.business.exception.BusinessException;
@@ -15,7 +14,6 @@ import com.sdi.model.Task;
 @Stateless
 public class EjbTaskService implements RemoteTaskService, LocalTaskService {
 
-//	@EJB private Auditor auditor;
 	
     /**
      * Default constructor. 
@@ -25,13 +23,11 @@ public class EjbTaskService implements RemoteTaskService, LocalTaskService {
 
 	@Override
 	public Long createCategory(Category category) throws BusinessException {
-//		auditor.audit("createCategory(" + category.getName() + ")");
 		return new TaskServiceImpl().createCategory(category);
 	}
 
 	@Override
 	public Long duplicateCategory(Long id) throws BusinessException {
-//		auditor.audit("duplicateCategory(");
 		return new TaskServiceImpl().duplicateCategory(id);
 	}
 

@@ -20,9 +20,10 @@ public class Output {
 		if (tasks.size() == 0) {
 			Console.println("Ninguna tarea asociada a dicha categoría");
 		} else {
-			Console.println("Nombre\tComentarios\tFecha planificada");
+			Console.println("Id\tNombre\tComentarios\tFecha planificada");
 			for (Task t : tasks) {
-				Console.println(t.getTitle() + "\t" + t.getComments() + "\t"
+				Console.println(t.getId()+"\t"+ t.getTitle() + "\t" 
+						+ t.getComments() + "\t"
 						+ t.getPlanned() + "\t");
 			}
 		}

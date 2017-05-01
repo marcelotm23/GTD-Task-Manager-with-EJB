@@ -57,7 +57,8 @@ public class MenuCategoriasUsuario {
 		cargarCategoriasUsuario();
 		// Second submenu
 		FacesContext context = FacesContext.getCurrentInstance();
-		ResourceBundle bundle = context.getApplication().getResourceBundle(context, "msgs");
+		ResourceBundle bundle = context.getApplication()
+				.getResourceBundle(context, "msgs");
 		String i18title = bundle.getString("categoriasMenu");
 		DefaultSubMenu secondSubmenu = new DefaultSubMenu(i18title);
 		DefaultMenuItem item = new DefaultMenuItem();

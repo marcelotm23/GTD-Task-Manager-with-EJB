@@ -1,5 +1,6 @@
 package com.sdi.client.ui.action;
 
+import javax.ejb.EJBException;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 
@@ -23,8 +24,8 @@ public class EliminarRastroUsuarioAction implements Action{
 				.lookup(ADMIN_SERVICE_JNDI_KEY);
 		try{
 			adminService.deepDeleteUser(id);
-		} catch (BusinessException e) {
-			Console.println("ERROR:" + e.getMessage());
+		} catch (BusinessException | EJBException e) {
+			Console.println("ERROR:" + e.getCause().getMessage());
 		}
 		
 		

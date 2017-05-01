@@ -17,7 +17,8 @@ import com.sdi.util.Output;
 
 public class ListarCategoriasAction implements Action {
 
-	private static final String REST_SERVICE_URL = "http://localhost:8280/sdi3-28.Web/rest/ServiceRs/findCategoriesByUserId";
+	private static final String REST_SERVICE_URL = 
+	 "http://localhost:8280/sdi3-28.Web/rest/ServiceRs/findCategoriesByUserId";
 
 	@Override
 	public void execute(User user) throws Exception {

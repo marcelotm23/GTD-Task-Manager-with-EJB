@@ -9,7 +9,7 @@ public class MainMenu extends BaseMenu{
 	public MainMenu() {
 		menuOptions = new Object[][] { 
 			{ "GTD REST Client", null},
-			{ "Authenticate", AuthenticateAction.class },
+			{ "Identificarse", AuthenticateAction.class },
 		};
 	}
 	

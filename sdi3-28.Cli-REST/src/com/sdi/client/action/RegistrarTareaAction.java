@@ -15,7 +15,8 @@ import alb.util.date.DateUtil;
 
 public class RegistrarTareaAction implements Action {
 
-	private static final String REST_SERVICE_URL = "http://localhost:8280/sdi3-28.Web/rest/ServiceRs/saveTask";
+	private static final String REST_SERVICE_URL = 
+			"http://localhost:8280/sdi3-28.Web/rest/ServiceRs/saveTask";
 
 	@Override
 	public void execute(User user) throws Exception {

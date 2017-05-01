@@ -18,7 +18,7 @@ public class DeshabilitarUsuarioAction implements Action {
 			adminService.disableUser(id);
 			Console.println("Usuario deshabilitado");
 		} catch (Exception e) {
-			Console.println("ERROR:" + e.getMessage());
+			Console.println("ERROR:" + e.getCause().getMessage());
 		}
 
 	}

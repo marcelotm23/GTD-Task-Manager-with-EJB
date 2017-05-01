@@ -88,7 +88,8 @@ public class BeanControlador implements Serializable {
 		try {
 				resetTablaTareas();
 				MenuItem menuItem = ((MenuActionEvent) event).getMenuItem();
-			    Long catId = Long.parseLong(menuItem.getParams().get("catSelecId").get(0));
+			    Long catId = Long.parseLong(menuItem.getParams()
+			    		.get("catSelecId").get(0));
 				taskService = Services.getTaskService();
 				tareas=taskService.findTasksByCategoryId(catId);
 				return "exito"; 
@@ -130,10 +131,10 @@ public class BeanControlador implements Serializable {
 	}
 
 	public void resetTablaTareas() {
-		DataTable dataTable = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formlistado:tablalistado");
+		DataTable dataTable = (DataTable) FacesContext.getCurrentInstance()
+				.getViewRoot().findComponent("formlistado:tablalistado");
 		if(dataTable!=null){
 			dataTable.resetValue();
-			//dataTable.reset();
 		}
 		
 	}
@@ -156,7 +157,8 @@ public class BeanControlador implements Serializable {
 		try {
 				resetTablaTareas();
 				taskService = Services.getTaskService();
-				List<Task> tareasFinalizadas=taskService.findFinishedInboxTasksByUserId(usuario.getId());
+				List<Task> tareasFinalizadas=taskService
+						.findFinishedInboxTasksByUserId(usuario.getId());
 				if(verFinalizadas){
 					tareas.addAll(tareasFinalizadas);
 				}else{
@@ -287,7 +289,8 @@ public class BeanControlador implements Serializable {
 			System.out.println("BeanUsuarios - No existia");
 			usuario=new BeanUsuario();
 			usuario.setUsuario((User) FacesContext.getCurrentInstance()
-					.getExternalContext().getSessionMap().get(new String("LOGGEDIN_USER")));
+					.getExternalContext().getSessionMap()
+					.get(new String("LOGGEDIN_USER")));
 		}
 		if(tarea == null){
 			tarea = new  BeanTarea();

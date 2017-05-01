@@ -16,7 +16,8 @@ import com.sdi.util.Jndi;
 
 public abstract class AbstractAction implements Action {
 
-	private static final String JMS_CONNECTION_FACTORY = "jms/RemoteConnectionFactory";
+	private static final String JMS_CONNECTION_FACTORY =
+			"jms/RemoteConnectionFactory";
 	private static final String GTD_QUEUE = "jms/queue/GTDQueue";
 
 	private Connection con;

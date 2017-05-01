@@ -69,8 +69,8 @@ public class AuthenticateFilter implements Filter {
 		
 			if (usr != null && usr.getStatus().equals(UserStatus.ENABLED)) {
 				if(usr.getIsAdmin()) {
-					throw new ServletException("Solo los usuarios estandares pueden"
-							+ " emplear este cliente.");
+					throw new ServletException("Solo los usuarios estandares "
+							+ "pueden emplear este cliente.");
 				}
 				chain.doFilter(request, response);
 			} else {
