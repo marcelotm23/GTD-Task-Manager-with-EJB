@@ -10,11 +10,11 @@ import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
+import javax.jms.Destination;
 import javax.jms.JMSException;
 import javax.jms.MapMessage;
 import javax.jms.MessageProducer;
 import javax.jms.Session;
-import javax.jms.TemporaryQueue;
 
 /**
  * Session Bean implementation class EjbAuditor
@@ -24,6 +24,9 @@ public class EjbAuditor implements Auditor {
 
 	@Resource(mappedName = "java:/ConnectionFactory")
 	private ConnectionFactory factory;
+	
+	@Resource(mappedName = "java:/queue/AuditQueue")
+	private Destination queue;
 
 	@Resource
 	private SessionContext ctx;
@@ -60,9 +63,7 @@ public class EjbAuditor implements Auditor {
 			Session session = con
 					.createSession(false, Session.AUTO_ACKNOWLEDGE);
 
-			TemporaryQueue tempQueue = session.createTemporaryQueue();
-
-			MessageProducer sender = session.createProducer(tempQueue);
+			MessageProducer sender = session.createProducer(queue);
 			MapMessage msg = createJmsMapMessage(msgMap, session);
 
 			sender.send(msg);
