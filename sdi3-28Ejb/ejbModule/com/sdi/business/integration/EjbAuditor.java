@@ -77,8 +77,9 @@ public class EjbAuditor implements Auditor {
 			Session session) throws JMSException {
 		MapMessage msg = session.createMapMessage();
 
-		msg.setObject("ErrorInfo", msgMap);
-
+		for(String key:msgMap.keySet()){
+			msg.setString(key, msg.getString(key));
+		}
 		return msg;
 	}
 

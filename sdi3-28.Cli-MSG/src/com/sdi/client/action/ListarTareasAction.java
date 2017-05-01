@@ -2,6 +2,7 @@ package com.sdi.client.action;
 
 import javax.jms.JMSException;
 import javax.jms.MapMessage;
+import javax.jms.Message;
 
 public class ListarTareasAction extends AbstractAction{
 
@@ -14,6 +15,12 @@ public class ListarTareasAction extends AbstractAction{
 		
 		
 		return msg;
+	}
+
+	@Override
+	public void onMessage(Message arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	

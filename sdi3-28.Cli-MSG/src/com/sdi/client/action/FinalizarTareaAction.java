@@ -2,6 +2,7 @@ package com.sdi.client.action;
 
 import javax.jms.JMSException;
 import javax.jms.MapMessage;
+import javax.jms.Message;
 
 import alb.util.console.Console;
 
@@ -16,6 +17,12 @@ public class FinalizarTareaAction extends AbstractAction{
 		msg.setLong("idTask", idTask);
 		
 		return msg; 
+	}
+
+	@Override
+	public void onMessage(Message arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
